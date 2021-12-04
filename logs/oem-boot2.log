@@ -1,0 +1,460 @@
+U-Boot SPL 2015.01
+mist_magic:APH
+DEV ID = 0xcf1e
+PCIE CFG DEV ID = 0x8025
+OTP offset(0x8): 0x78f01c01
+OTP offset(0x9): 0xfe400818
+OTP offset(0xa): 0xc01b0
+OTP offset(0xb): 0x0
+OTP offset(0xc): 0x4a00000
+OTP offset(0xd): 0xffede250
+OTP offset(0xe): 0x1135d17f
+OTP offset(0xf): 0x4000
+NSP25 32bit DDR
+SKU ID = 0x0
+DDR type: DDR3
+MEMC 0 DDR speed = 800MHz
+ddr_init2: Calling soc_ddr40_set_shmoo_dram_config
+ddr_init2: Calling soc_ddr40_phy_calibrate
+C01. Check Power Up Reset_Bar
+C02. Config and Release PLL from reset
+C03. Poll PLL Lock
+C04. Calibrate ZQ (ddr40_phy_calib_zq)
+C05. DDR PHY VTT On (Virtual VTT setup) DISABLE all Virtual VTT
+C06. DDR40_PHY_DDR3_MISC
+C07. VDL Calibration
+C07.1
+C07.2
+C07.4
+C07.4.1
+C07.4.4
+VDL calibration result: 0x30000003 (cal_steps = 0)
+C07.4.5
+C07.4.6
+C07.5
+C08. DDR40_PHY_DDR3_MISC : Start DDR40_PHY_RDLY_ODT....
+C09. Start ddr40_phy_autoidle_on (MEM_SYS_PARAM_PHY_AUTO_IDLE) ....
+C10. Wait for Phy Ready
+Programming controller register
+ddr_init2: Calling soc_ddr40_shmoo_ctl
+Validate Shmoo parameters stored in flash ..... OK
+Press Ctrl-C to run Shmoo ..... skipped
+Restoring Shmoo parameters from flash ..... done
+Running simple memory test ..... OK
+DDR Tune Completed
+ Micron MT29F2G08ABAFA, 128 KiB blocks, 2 KiB pages, 16B OOB, 8-bit
+boot: w1i1c0 > w1i2c7
+watchdog enabled
+loading uboot2 391152 bytes csum good (0fef1038)
+
+
+U-Boot 2015.01 (Oct 18 2019 - 01:26:02)
+
+I2C:   ready
+DRAM:  512 MiB
+l2cc_invalidate - Done, i = 992, invway = 0
+NAND:   Micron MT29F2G08ABAFA, 128 KiB blocks, 2 KiB pages, 16B OOB, 8-bit
+NAND:   chipsize 256 MiB
+In:    serial
+Out:   serial
+Err:   serial
+arm_clk=1200MHz, axi_clk=600MHz, apb_clk=300MHz, arm_periph_clk=600MHz
+atmega upgrade unnecessary
+ret 0
+bootstate: warm
+Net:   Registering eth
+Broadcom BCM IPROC Ethernet driver 0.1
+Using GMAC1 (0x18023000)
+et0: ethHw_chipAttach phyaddr (0x1e)
+et0: ethHw_chipAttach: Chip ID: 0xcf1e; phyaddr: 0x1e
+ethHw_chipAttach:766 configure ROBO switch for simple bridging
+bcm_robo_attach: devid: 0x10
+bcm_robo_enable_switch:841()
+bcmiproc_eth-0
+Press Ctrl-C within 2 seconds to stop autoboot.
+boot config w1i2c7 -UBI: attaching mtd1 to ubi0
+UBI: scanning is finished
+UBI: attached mtd1 (name "mtd=4", size 253 MiB) to ubi0
+UBI: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes
+UBI: min./max. I/O unit sizes: 2048/2048, sub-page size 2048
+UBI: VID header offset: 2048 (aligned 2048), data offset: 4096
+UBI: good PEBs: 2027, bad PEBs: 0, corrupted PEBs: 0
+UBI: user volume: 3, internal volumes: 1, max. volumes count: 128
+UBI: max/mean erase counter: 284/2, WL threshold: 4096, image sequence number: 0
+UBI: available PEBs: 0, total reserved PEBs: 2027, PEBs reserved for bad PEB handling: 40
+Loading file '/boot/mist-aph.dtb' to addr 0x62800000 with size 11234 (0x00002be2)...
+Done
+Loading file '/boot/uImage' to addr 0x60ffffc0 with size 2383952 (0x00246050)...
+nand_read_data_oob:1039 corrected 1 bits in NAND page at offset 0x36d2000
+nand_read_data_oob:1039 corrected 1 bits in NAND page at offset 0x3724a00
+nand_read_data_oob:1039 corrected 1 bits in NAND page at offset 0x374d800
+nand_read_data_oob:1039 corrected 1 bits in NAND page at offset 0x3852400
+nand_read_data_oob:1039 corrected 1 bits in NAND page at offset 0x3852400
+Done
+## Booting kernel from Legacy Image at 60ffffc0 ...
+   Image Name:   Linux-3.10.105
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2383888 Bytes = 2.3 MiB
+   Load Address: 80008000
+   Entry Point:  61000000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 62800000
+   Booting using the fdt blob at 0x62800000
+   Loading Kernel Image ... OK
+   Loading Device Tree to 7fe85000, end 7fe8abe1 ... OK
+
+Starting kernel ...
+
+Uncompressing Linux... done, booting the kernel.
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] init/main.c:501 start_kernel Linux version 3.10.105 (btb@boeing) (gcc version 6.4.0 (Buildroot 2017.08) ) #1 SMP Fri Oct 18 01:19:06 UTC 2019
+[    0.000000] CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] kernel/devtree.c:244 setup_machine_fdt Machine: NSP SoC, model: Mist APH
+[    0.000000] bootconsole [earlycon0] enabled
+[    0.000000] Memory policy: ECC disabled, Data cache writealloc
+[    0.000000] mm/ioremap.c:105 add_static_vm_early add_static_vm_early() mapping from va fee00000 to pa 0x19020000
+[    0.000000] pl310_of_setup:617 (*aux_val 0x7a150001, *aux_mask 0xfff0ffff)
+[    0.000000] pl310_of_setup:620 tag-latency = 0x0, 0x0, 0x0
+[    0.000000] pl310_of_setup:631 data-latency = 0x0, 0x0, 0x0
+[    0.000000] pl310_of_setup:642 filter-ranges = 0x0, 0x0
+[    0.000000] pl310_of_setup:651 *aux_val = 0x7a150001, *aux_mask = 0xfff0ffff
+[    0.000000] l2x0_init:361 (aux_val 0x7a150001, aux_mask 0xfff0ffff)
+[    0.000000] l2x0_init:367 cache_id = 0x410000c8
+[    0.000000] l2x0_init:369 aux = 0xa150800
+[    0.000000] l2x0_init:373 aux = 0x7a150801
+[    0.000000] l2x0_init:408 type = L310
+[    0.000000] l2x0_init:430 aux = 0x7a150801
+[    0.000000] l2x0_init:443 aux = 0x7a150801
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 16 ways, CACHE_ID 0x410000c8, AUX_CTRL 0x7a150801, Cache size: 524288 B
+[    0.000000] mm/percpu.c:1702 pcpu_embed_first_chunk PERCPU: Embedded 7 pages/cpu @c08db000 s6528 r8192 d13952 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 130048
+[    0.000000] init/main.c:513 start_kernel Kernel command line: console=ttyS0,115200 maxcpus=2 mem=512M earlyprintk root=/dev/mtdblock4 rootfstype=ubifs ubi.mtd=4 root=ubi0:rootfs2 ro
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Memory: 512MB = 512MB total
+[    0.000000] Memory: 514740k/514740k available, 9548k reserved, 0K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     vmalloc : 0xe0800000 - 0xff000000   ( 488 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xe0000000   ( 512 MB)
+[    0.000000]     modules : 0xbf000000 - 0xc0000000   (  16 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc0448e4c   (4356 kB)
+[    0.000000]       .init : 0xc0449000 - 0xc0475980   ( 179 kB)
+[    0.000000]       .data : 0xc0476000 - 0xc0498050   ( 137 kB)
+[    0.000000]        .bss : 0xc0498050 - 0xc04d001c   ( 224 kB)
+[    0.000000] SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] NR_IRQS:16 nr_irqs:16 16
+[    0.000000] kernel/sched_clock.c:150 setup_sched_clock sched_clock: 32 bits at 600MHz, resolution 1ns, wraps every 7158ms
+[    0.000095] init/calibrate.c:290 calibrate_delay Calibrating delay loop... 2383.87 BogoMIPS (lpj=1191936)
+[    0.017093] kernel/pid.c:594 pidmap_init pid_max: default: 32768 minimum: 301
+[    0.024907] Mount-cache hash table entries: 512
+[    0.031673] CPU: Testing write buffer coherency: ok
+[    0.037146] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+[    0.043306] mm/idmap.c:101 init_static_idmap Setting up static identity map for 0xc035de08 - 0xc035de3c
+[    0.054281] CPU1: Booted secondary processor
+[    0.061276] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+[    0.061343] Brought up 2 CPUs
+[    0.075352] SMP: Total of 2 processors activated (4780.03 BogoMIPS).
+[    0.082214] kernel/setup.c:777 hyp_mode_check CPU: All CPU(s) started in SVC mode.
+[    0.090820] devtmpfs: initialized
+[    0.098702] pinctrl core: initialized pinctrl subsystem
+[    0.104572] NET: Registered protocol family 16
+[    0.109906] mm/dma-mapping.c:384 atomic_pool_init DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.123180] mach-bcm/board_bcm_nsp.c:1057 northstar_init NorthStar+ B0 or later entered coherent mode
+[    0.133256] mach-bcm/board_bcm_nsp.c:1074 northstar_init NorthStar+ >= B0 system with ACPAL disabled: subject to cache line corruption under certain conditions
+[    0.148742] mach-bcm/board_bcm_nsp.c:1076 northstar_init NorthStar+ >= B0 system with ACPAL disabled: recommend enabling ACPAL function
+[    0.163499] bio: create slab <bio-0> at 0
+[    0.769732] iproc-pcie 18012000.pcie: PCI host bridge to bus 0000:00
+[    0.776601] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+[    0.783300] pci_bus 0000:00: root bus resource [mem 0x08000000-0x0fffffff]
+[    0.790800] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.796961] PCI: bus0: Fast back to back transfers disabled
+[    0.803095] pci 0000:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    0.812024] PCI: bus1: Fast back to back transfers disabled
+[    0.818114] pci 0000:00:00.0: BAR 9: assigned [mem 0x08000000-0x083fffff 64bit pref]
+[    0.826462] pci 0000:00:00.0: BAR 8: assigned [mem 0x08400000-0x089fffff]
+[    0.833792] pci 0000:01:00.0: BAR 2: assigned [mem 0x08400000-0x087fffff 64bit]
+[    0.841695] pci 0000:01:00.0: BAR 4: assigned [mem 0x08000000-0x083fffff 64bit pref]
+[    0.850053] pci 0000:01:00.0: BAR 0: assigned [mem 0x08800000-0x08807fff 64bit]
+[    0.857946] pci 0000:00:00.0: PCI bridge to [bus 01]
+[    0.863332] pci 0000:00:00.0:   bridge window [mem 0x08400000-0x089fffff]
+[    0.870651] pci 0000:00:00.0:   bridge window [mem 0x08000000-0x083fffff 64bit pref]
+[    0.879003] PCI: enabling device 0000:00:00.0 (0140 -> 0143)
+[    1.486640] iproc-pcie 18013000.pcie: PCI host bridge to bus 0001:00
+[    1.493551] pci_bus 0001:00: root bus resource [io  0x0000-0xffff]
+[    1.500243] pci_bus 0001:00: root bus resource [mem 0x40000000-0x47ffffff]
+[    1.507679] pci_bus 0001:00: root bus resource [bus 00-ff]
+[    1.513759] PCI: bus0: Fast back to back transfers disabled
+[    1.519786] pci 0001:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    1.528707] PCI: bus1: Fast back to back transfers disabled
+[    1.534775] pci 0001:00:00.0: BAR 9: assigned [mem 0x40000000-0x403fffff 64bit pref]
+[    1.543127] pci 0001:00:00.0: BAR 8: assigned [mem 0x40400000-0x409fffff]
+[    1.550460] pci 0001:01:00.0: BAR 2: assigned [mem 0x40400000-0x407fffff 64bit]
+[    1.558351] pci 0001:01:00.0: BAR 4: assigned [mem 0x40000000-0x403fffff 64bit pref]
+[    1.566701] pci 0001:01:00.0: BAR 0: assigned [mem 0x40800000-0x40807fff 64bit]
+[    1.574593] pci 0001:00:00.0: PCI bridge to [bus 01]
+[    1.579978] pci 0001:00:00.0:   bridge window [mem 0x40400000-0x409fffff]
+[    1.587307] pci 0001:00:00.0:   bridge window [mem 0x40000000-0x403fffff 64bit pref]
+[    1.595658] PCI: enabling device 0001:00:00.0 (0140 -> 0143)
+[    2.203271] iproc-pcie 18014000.pcie: PCI host bridge to bus 0002:00
+[    2.210145] pci_bus 0002:00: root bus resource [io  0x0000-0xffff]
+[    2.216827] pci_bus 0002:00: root bus resource [mem 0x48000000-0x4fffffff]
+[    2.224237] pci_bus 0002:00: root bus resource [bus 00-ff]
+[    2.230322] PCI: bus0: Fast back to back transfers disabled
+[    2.236379] pci 0002:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    2.245336] PCI: bus1: Fast back to back transfers disabled
+[    2.251419] pci 0002:00:00.0: BAR 9: assigned [mem 0x48000000-0x483fffff 64bit pref]
+[    2.259766] pci 0002:00:00.0: BAR 8: assigned [mem 0x48400000-0x489fffff]
+[    2.267095] pci 0002:01:00.0: BAR 2: assigned [mem 0x48400000-0x487fffff 64bit]
+[    2.274989] pci 0002:01:00.0: BAR 4: assigned [mem 0x48000000-0x483fffff 64bit pref]
+[    2.283340] pci 0002:01:00.0: BAR 0: assigned [mem 0x48800000-0x48807fff 64bit]
+[    2.291241] pci 0002:00:00.0: PCI bridge to [bus 01]
+[    2.296617] pci 0002:00:00.0:   bridge window [mem 0x48400000-0x489fffff]
+[    2.304054] pci 0002:00:00.0:   bridge window [mem 0x48000000-0x483fffff 64bit pref]
+[    2.312530] PCI: enabling device 0002:00:00.0 (0140 -> 0143)
+[    2.318919] core/driver.c:919 usb_register_driver usbcore: registered new interface driver usbfs
+[    2.328421] core/driver.c:919 usb_register_driver usbcore: registered new interface driver hub
+[    2.337756] core/driver.c:851 usb_register_device_driver usbcore: registered new device driver usb
+[    2.347555] platform i2c1.1: Driver i2c-gpio requests probe deferral
+[    2.354720] Bluetooth: Core ver 2.16
+[    2.358642] NET: Registered protocol family 31
+[    2.363474] Bluetooth: HCI device and connection manager initialized
+[    2.370343] Bluetooth: HCI socket layer initialized
+[    2.375636] Bluetooth: L2CAP socket layer initialized
+[    2.381129] Bluetooth: SCO socket layer initialized
+[    2.386458] Switching to clocksource arm_global_timer
+[    2.392761] NET: Registered protocol family 2
+[    2.397935] TCP established hash table entries: 4096 (order: 3, 32768 bytes)
+[    2.405616] TCP bind hash table entries: 4096 (order: 4, 81920 bytes)
+[    2.412650] TCP: Hash tables configured (established 4096 bind 4096)
+[    2.419566] TCP: reno registered
+[    2.423102] UDP hash table entries: 256 (order: 1, 12288 bytes)
+[    2.429525] UDP-Lite hash table entries: 256 (order: 1, 12288 bytes)
+[    2.436559] NET: Registered protocol family 1
+[    2.446101] msgmni has been set to 1005
+[    2.450858] io scheduler noop registered (default)
+[    2.456144] iproc-gpio 18000060.gpio: gpio_cca intr ioaddr: e08b0000 dmu ioaddr: e08b2000
+[    2.464963] iproc-gpio 18000060.gpio: gpio_cca base: e08b4060
+[    2.471588] iproc-gpio 18000060.gpio: gpio_cca: base irq: 256, irq: 117
+[    2.478884] iproc-gpio 18030000.gpio: gpio_cmicm base: e08b6000
+[    2.485377] iproc-gpio 18030000.gpio: gpio_cmicm: base irq: 288, irq: 119
+[    2.492876] iproc-gpio blesw.2: Error getting intr resource
+[    2.499116] Serial: 8250/16550 driver, 2 ports, IRQ sharing disabled
+[    2.526444] 18000300.serial: ttyS0 at MMIO 0x18000300 (irq = 117) is a U6_16550A
+[    2.534431] console [ttyS0] enabled, bootconsole disabled
+[    2.534431] console [ttyS0] enabled, bootconsole disabled
+[    2.566138] 18000400.serial: ttyS1 at MMIO 0x18000400 (irq = 117) is a U6_16550A
+[    2.574355] iproc_nand_probe: pdev df908800, id -1
+[    2.579372] nand/iproc_nand.c:1492 iproc_nand_ctrl_setup iproc_nand: auto-init success
+[    2.587736] nand/nand_base.c:2877 nand_flash_detect_onfi nand_flash_detect_onfi:2877 ONFI param page 0 valid
+[    2.597883] nand/nand_base.c:2927 nand_flash_detect_onfi ONFI flash detected
+[    2.605160] nand/nand_base.c:3343 nand_get_flash_type nand_get_flash_type:3343 NAND device: Manufacturer ID: 0x2c, Chip ID: 0xda (Micron MT29F2G08ABAGAWP), 256MiB, page size: 2048, OOB size: 128
+[    2.623197] nand/nand_base.c:2877 nand_flash_detect_onfi nand_flash_detect_onfi:2877 ONFI param page 0 valid
+[    2.633345] nand/nand_base.c:2927 nand_flash_detect_onfi ONFI flash detected
+[    2.640623] nand/nand_base.c:3343 nand_get_flash_type nand_get_flash_type:3343 NAND device: Manufacturer ID: 0x2c, Chip ID: 0xda (Micron MT29F2G08ABAGAWP), 256MiB, page size: 2048, OOB size: 128
+[    2.658482] nand/iproc_nand.c:1151 iproc_nand_timing_setup iproc_nand: timing1,2 = 0x44442235, 0x80000e45
+[    2.668363] nand/iproc_nand.c:893 iproc_nand_setup_dev iproc_nand: following bootloader settings
+[    2.677430] nand/iproc_nand.c:790 iproc_nand_print_cfg NAND 8-bit 256MiB total, 128KiB blocks, 2KiB pages
+[    2.677430]      8bit/512B BCH-ECC 16B/512B OOB
+[    2.691971] nand/iproc_nand.c:1070 iproc_nand_setup_dev iproc_nand: user oob per page: 6 bytes (4 steps)
+[    2.702013] nand/nand_bbt.c:613 search_bbt Bad block table not found for chip 0
+[    2.709776] nand/nand_bbt.c:613 search_bbt Bad block table not found for chip 0
+[    2.717318] nand/nand_bbt.c:472 create_bbt Scanning device for bad blocks
+[    2.961738] nand/nand_bbt.c:844 write_bbt Bad block table written to 0x00000ffe0000, version 0x01
+[    2.971970] nand/nand_bbt.c:844 write_bbt Bad block table written to 0x00000ffc0000, version 0x01
+[    2.981329] 5 ofpart partitions found on MTD device iproc_nand
+[    2.987357] Creating 5 MTD partitions on "iproc_nand":
+[    2.992670] 0x000000000000-0x000000020000 : "spl"
+[    2.997682] 0x000000020000-0x000000120000 : "uboot1"
+[    3.002943] 0x000000120000-0x000000220000 : "uboot2"
+[    3.008219] 0x000000220000-0x0000002a0000 : "panic"
+[    3.013391] 0x0000002a0000-0x000010000000 : "ubi"
+[    3.018523] nand/iproc_nand.c:1301 iproc_nand_probe iproc_nand: NAND controller driver is loaded
+[    3.027648] tun: Universal TUN/TAP device driver, 1.6
+[    3.032862] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    3.039318] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.046083] host/ehci-pci.c:443 ehci_pci_init ehci-pci: EHCI PCI platform driver
+[    3.053762] host/ehci-platform.c:237 ehci_platform_init ehci-platform: EHCI generic platform driver
+[    3.063173] ehci-platform 1802a000.usb: EHCI Host Controller
+[    3.069034] ehci-platform 1802a000.usb: new USB bus registered, assigned bus number 1
+[    3.077216] ehci-platform 1802a000.usb: irq 111, io mem 0x1802a000
+[    3.088961] ehci-platform 1802a000.usb: USB 2.0 started, EHCI 1.00
+[    3.095434] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    3.102450] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.109910] usb usb1: Product: EHCI Host Controller
+[    3.114945] usb usb1: Manufacturer: Linux 3.10.105 ehci_hcd
+[    3.120696] usb usb1: SerialNumber: 1802a000.usb
+[    3.125803] hub 1-0:1.0: USB hub found
+[    3.129687] hub 1-0:1.0: 2 ports detected
+[    3.134056] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    3.140597] core/driver.c:919 usb_register_driver usbcore: registered new interface driver usbserial
+[    3.150049] core/driver.c:919 usb_register_driver usbcore: registered new interface driver pl2303
+[    3.159232] usbserial: USB Serial support registered for pl2303
+[    3.165350] i2c /dev entries driver
+[    3.169610] at24 1-0052: 8192 byte 24c64 EEPROM, writable, 32 bytes/write
+[    3.176849] sp805-wdt 18039000.wdt: registration successful
+[    3.182625] Bluetooth: HCI UART driver ver 2.2
+[    3.187218] Bluetooth: HCI H4 protocol initialized
+[    3.192161] Bluetooth: HCI BCSP protocol initialized
+[    3.197420] gre: GRE over IPv4 demultiplexor driver
+[    3.202458] ip_gre: GRE over IPv4 tunneling driver
+[    3.208069] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    3.213635] TCP: cubic registered
+[    3.217063] TCP: westwood registered
+[    3.221188] NET: Registered protocol family 10
+[    3.226514] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    3.232176] NET: Registered protocol family 17
+[    3.236795] NET: Registered protocol family 15
+[    3.241483] Bluetooth: RFCOMM socket layer initialized
+[    3.246795] Bluetooth: RFCOMM ver 1.11
+[    3.250669] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    3.256157] Bluetooth: BNEP socket layer initialized
+[    3.261320] vfp/vfpmodule.c:679 vfp_init VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+[    3.271850] Registering SWP/SWPB emulation handler
+[    3.280972] at24 0-0052: 8192 byte 24c64 EEPROM, writable, 32 bytes/write
+[    3.288269] i2c-gpio i2c1.1: using pins 5 (SDA) and 4 (SCL)
+[    3.294175] ubi/build.c:971 ubi_attach_mtd_dev UBI: attaching mtd4 to ubi0
+[    3.706060] ubi/attach.c:1252 scan_all UBI: scanning is finished
+[    3.717888] ubi/build.c:1020 ubi_attach_mtd_dev UBI: attached mtd4 (name "ubi", size 253 MiB) to ubi0
+[    3.727413] ubi/build.c:1022 ubi_attach_mtd_dev UBI: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes
+[    3.737647] ubi/build.c:1024 ubi_attach_mtd_dev UBI: min./max. I/O unit sizes: 2048/2048, sub-page size 2048
+[    3.747789] ubi/build.c:1026 ubi_attach_mtd_dev UBI: VID header offset: 2048 (aligned 2048), data offset: 4096
+[    3.758111] ubi/build.c:1028 ubi_attach_mtd_dev UBI: good PEBs: 2023, bad PEBs: 4, corrupted PEBs: 0
+[    3.767537] ubi/build.c:1031 ubi_attach_mtd_dev UBI: user volume: 3, internal volumes: 1, max. volumes count: 128
+[    3.778128] ubi/build.c:1034 ubi_attach_mtd_dev UBI: max/mean erase counter: 284/2, WL threshold: 4096, image sequence number: 0
+[    3.790063] ubi/build.c:1036 ubi_attach_mtd_dev UBI: available PEBs: 0, total reserved PEBs: 2023, PEBs reserved for bad PEB handling: 36
+[    3.802811] ubi/wl.c:1794 ubi_thread UBI: background thread "ubi_bgt0d" started, PID 63
+[    3.844394] ubifs/super.c:1415 mount_ubifs UBIFS: mounted UBI device 0, volume 1, name "rootfs2", R/O mode
+[    3.854366] ubifs/super.c:1420 mount_ubifs UBIFS: LEB size: 126976 bytes (124 KiB), min./max. I/O unit sizes: 2048 bytes/2048 bytes
+[    3.866576] ubifs/super.c:1423 mount_ubifs UBIFS: FS size: 119230464 bytes (113 MiB, 939 LEBs), journal size 9023488 bytes (8 MiB, 72 LEBs)
+[    3.879502] ubifs/super.c:1425 mount_ubifs UBIFS: reserved for root: 0 bytes (0 KiB)
+[    3.887496] ubifs/super.c:1429 mount_ubifs UBIFS: media format: w4/r0 (latest is w4/r0), UUID 01659BB6-8C0B-46B1-87D7-A0AD6C3B8006, small LPT model
+[    3.901542] VFS: Mounted root (ubifs filesystem) readonly on device 0:11.
+[    3.908960] devtmpfs: mounted
+[    3.912149] mm/page_alloc.c:5178 free_reserved_area Freeing unused kernel memory: 176K (c0449000 - c0475000)
+[    3.973258] ubifs/sb.c:336 create_default_filesystem UBIFS: default file-system created
+[    3.981896] ubifs/commit.c:293 ubifs_bg_thread UBIFS: background thread "ubifs_bgt0_2" started, PID 68
+[    4.010678] ubifs/super.c:1415 mount_ubifs UBIFS: mounted UBI device 0, volume 2, name "rw"
+[    4.019311] ubifs/super.c:1420 mount_ubifs UBIFS: LEB size: 126976 bytes (124 KiB), min./max. I/O unit sizes: 2048 bytes/2048 bytes
+[    4.031519] ubifs/super.c:1423 mount_ubifs UBIFS: FS size: 9269248 bytes (8 MiB, 73 LEBs), journal size 1015809 bytes (0 MiB, 6 LEBs)
+[    4.043900] ubifs/super.c:1425 mount_ubifs UBIFS: reserved for root: 437809 bytes (427 KiB)
+[    4.052522] ubifs/super.c:1429 mount_ubifs UBIFS: media format: w4/r0 (latest is w4/r0), UUID DBF2A5DB-EF82-4A30-A6E3-287E9F2D1898, small LPT model
+Starting logging: OK
+Starting watchdog: OK
+Initializing random number generator... done.
+Starting system message bus: done
+Starting mist_pm: Setting up PM IN GPIOs: Setting up PM Out GPIOs: [    4.455428] robo/robo.c:1514 robo_probe mfg_hw_rev F
+[    4.460578] robo/robo.c:1555 robo_probe LLDP enable ports 0x90
+[    4.470659] aximac/aximac.c:1401 aximac_probe 18022000.ethernet: no MAC defined in device-tree
+[    4.479579] aximac: probe of 18022000.ethernet failed with error -2
+[    4.487237] aximac/aximac.c:1401 aximac_probe 18024000.ethernet: no MAC defined in device-tree
+[    4.496147] aximac: probe of 18024000.ethernet failed with error -2
+[    4.502652] aximac/aximac.c:1401 aximac_probe 18025000.ethernet: no MAC defined in device-tree
+[    4.511552] aximac: probe of 18025000.ethernet failed with error -2
+Starting network: OK
+Starting ntpd: OK
+Starting wl: [    4.709077] bootcfg/main.c:183 bootcfg_init radio available bitmask 0x0
+[    4.718553] emf: module license 'Proprietary' taints kernel.
+[    4.724412] Disabling lock debugging due to kernel taint
+[    5.236979] sys/wl_linux.c:2495 wl_pci_probe wl_pci_probe: bus 1 slot 0 func 0 irq 163
+[    5.245170] sys/wl_linux.c:2507 wl_pci_probe wl_pci_probe: supported vendor 14e4 device 43c4
+[    5.253894] PCI: enabling device 0000:01:00.0 (0140 -> 0142)
+[    5.259743] sys/wl_linux.c:2524 wl_pci_probe wl_pci_probe: Enabled device 1-0_0
+[    5.267344] sys/wl_linux.c:2544 wl_pci_probe wl_pci_probe: bar1_size = 4194304, bar1_start = 0x8400000, bar1_end = 0x87fffff, bar1_addr = e1800000
+[    5.280934] sys/wl_linux.c:2555 wl_pci_probe wl_pci_probe: bar2_size = 4194304, bar2_start = 0x8000000, bar2_end = 0x83fffff, bar2_addr = e2000000
+[    5.294495] sys/wl_linux.c:1551 wl_attach wl0: online cpus 2
+[    5.300582] si_buscore_setup:380 :6
+[    5.400337] sys/wlc_bmac.c:5744 wlc_bmac_attach wlc_bmac_attach, deviceid 0x43c4 nbands 1
+[    5.452176] sys/wlc_bmac.c:6006 wlc_bmac_attach wl0: wlc_bmac_attach: chiprev 4 corerev 65 cccap 0x58400009 maccap 0xf0018705 band 2.4G, phy_type 11 phy_rev 33
+[    5.475005] sys/wlc_ampdu.c:12025 wlc_ampdu_tx_set wl0: wlc_ampdu_tx_set: AGG Mode = MAC+AQM txmaxpkts 512
+[    5.485497] wlc_exclude_chans_attach(171)
+[    5.489663] sys/wlc.c:9515 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=111 num=100
+[    5.500172] sys/wlc.c:9671 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=151 num=147
+[    5.510626] wl_airiq_init:def00000 SMM buffer alloc success (32768B)
+[    5.517233] wl_airiq_init:dec00000 SMDATA buffer alloc success (2097152B)
+[    5.526695] r0: Broadcom BCM43c4 802.11 Wireless Controller 10.10.80.8_e5.1.4.3 (r699630)
+[    5.535206] sys/wl_linux.c:2495 wl_pci_probe wl_pci_probe: bus 1 slot 0 func 0 irq 169
+[    5.543388] sys/wl_linux.c:2507 wl_pci_probe wl_pci_probe: supported vendor 14e4 device 43c5
+[    5.552108] PCI: enabling device 0001:01:00.0 (0140 -> 0142)
+[    5.557963] sys/wl_linux.c:2524 wl_pci_probe wl_pci_probe: Enabled device 1-0_0
+[    5.565555] sys/wl_linux.c:2544 wl_pci_probe wl_pci_probe: bar1_size = 4194304, bar1_start = 0x40400000, bar1_end = 0x407fffff, bar1_addr = e2800000
+[    5.579318] sys/wl_linux.c:2555 wl_pci_probe wl_pci_probe: bar2_size = 4194304, bar2_start = 0x40000000, bar2_end = 0x403fffff, bar2_addr = e3000000
+[    5.593055] sys/wl_linux.c:1551 wl_attach wl1: online cpus 2
+[    5.599144] si_buscore_setup:380 :6
+[    5.698546] sys/wlc_bmac.c:5744 wlc_bmac_attach wlc_bmac_attach, deviceid 0x43c5 nbands 1
+[    5.751024] sys/wlc_bmac.c:6006 wlc_bmac_attach wl1: wlc_bmac_attach: chiprev 4 corerev 65 cccap 0x58400009 maccap 0xf0018705 band 5G, phy_type 11 phy_rev 33
+[    5.773701] sys/wlc_ampdu.c:12025 wlc_ampdu_tx_set wl1: wlc_ampdu_tx_set: AGG Mode = MAC+AQM txmaxpkts 512
+[    5.784212] wlc_exclude_chans_attach(171)
+[    5.788387] sys/wlc.c:9515 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=111 num=100
+[    5.798905] sys/wlc.c:9671 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=151 num=147
+[    5.813527] r1: Broadcom BCM43c5 802.11 Wireless Controller 10.10.80.8_e5.1.4.3 (r699630)
+[    5.822054] sys/wl_linux.c:2495 wl_pci_probe wl_pci_probe: bus 1 slot 0 func 0 irq 175
+[    5.830238] sys/wl_linux.c:2507 wl_pci_probe wl_pci_probe: supported vendor 14e4 device 43c3
+[    5.838963] PCI: enabling device 0002:01:00.0 (0140 -> 0142)
+[    5.844813] sys/wl_linux.c:2524 wl_pci_probe wl_pci_probe: Enabled device 1-0_0
+[    5.852401] sys/wl_linux.c:2544 wl_pci_probe wl_pci_probe: bar1_size = 4194304, bar1_start = 0x48400000, bar1_end = 0x487fffff, bar1_addr = e3800000
+[    5.866164] sys/wl_linux.c:2555 wl_pci_probe wl_pci_probe: bar2_size = 4194304, bar2_start = 0x48000000, bar2_end = 0x483fffff, bar2_addr = e4000000
+[    5.879900] sys/wl_linux.c:1551 wl_attach wl2: online cpus 2
+[    5.885989] si_buscore_setup:380 :6
+[    5.985709] sys/wlc_bmac.c:5744 wlc_bmac_attach wlc_bmac_attach, deviceid 0x43c3 nbands 2
+[    6.037810] sys/wlc_bmac.c:6006 wlc_bmac_attach wl2: wlc_bmac_attach: chiprev 4 corerev 65 cccap 0x58400009 maccap 0xf0018705 band 2.4G, phy_type 11 phy_rev 33
+[    6.053136] sys/wlc_bmac.c:6006 wlc_bmac_attach wl2: wlc_bmac_attach: chiprev 4 corerev 65 cccap 0x58400009 maccap 0xf0018705 band 5G, phy_type 11 phy_rev 33
+[    6.075566] sys/wlc_ampdu.c:12025 wlc_ampdu_tx_set wl2: wlc_ampdu_tx_set: AGG Mode = MAC+AQM txmaxpkts 512
+[    6.086071] wlc_exclude_chans_attach(171)
+[    6.090233] sys/wlc.c:9515 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=111 num=100
+[    6.100733] sys/wlc.c:9671 wlc_attach_module ERROR: wlc_attach_module: module/err num seq: prev_num=151 num=147
+[    6.115621] r2: Broadcom BCM43c3 802.11 Wireless Controller 10.10.80.8_e5.1.4.3 (r699630)
+OK
+Starting wxlan: [    6.141534] mod/init.c:142 wxlan_init wxlan_init()
+[    6.147333] WXL: MAC Cache Init. rc=0
+[    6.151893] WXL: Flow-9 Cache Init. rc=0
+[    6.156094] mod/svi.c:374 wxlan_init_SVIs #0 ()
+[    6.164960] mod/svi.c:189 wxlan_svi_netdev_setup1 #0 (dfa3f800)
+[    6.171080] mod/svi.c:217 wxlan_svi_netdev_setup2 #0 (dfa3f800,1,0)
+[    6.178366] core/dev.c:4578 __dev_set_promiscuity device aximac1 entered promiscuous mode
+[    6.186834] mod/l2tpv3.c:1193 wxlan_init_l2tpv3 #0 ()
+[    6.192065] WL: Wxlan Loaded.
+[    6.195157] Init Wxlan IPC rc=0
+OK
+/rw/etc/mist/ep-control/last_reboot_info.txt not found, defaulting..
+Starting ep-control: OK
+[    6.254380] cfg80211: Calling CRDA to update world regulatory domain
+[    6.278849] mod/init.c:37 pace_init pace.ko loading
+[    6.283985] mod/init.c:29 pace_alloc_ring #0 allocated ring[0] df380000
+[    6.290870] mod/init.c:29 pace_alloc_ring #0 allocated ring[1] df3a0000
+[    6.297718] mod/chardev.c:244 pace_init_chardev register_chrdev() returned 250
+[    6.305178] mod/chardev.c:251 pace_init_chardev pace_ring major devnum 250
+Starting pace: OK
+Starting bleBeacon... BackgroundedAP41-WW
+
+Welcome to Mist APH
+mist_aph login: [    6.926933] mod/svi.c:59 wxlan_svi_open #0 vlan1
+[    7.075381] sys/wlc.c:33314 wlc_enable_probe_req wl0: wlc_enable_probe_req: state down, deferring setting of host flags
+[    7.088796] sys/wlc.c:33314 wlc_enable_probe_req wl1: wlc_enable_probe_req: state down, deferring setting of host flags
+[    7.122763] sys/wlc.c:33314 wlc_enable_probe_req wl0: wlc_enable_probe_req: state down, deferring setting of host flags
+[    7.134608] sys/wlc.c:33314 wlc_enable_probe_req wl1: wlc_enable_probe_req: state down, deferring setting of host flags
+[    7.185273] mod/wl_mgmt.c:343 pace_mgmt_open #0 pace_mgmt_open(df49f770,dd42f6c0) qnum 0
+[    7.196665] mod/wl_mgmt.c:343 pace_mgmt_open #0 pace_mgmt_open(df49f770,dd42fd80) qnum 0
+[    7.196897] mod/wl_mgmt.c:343 pace_mgmt_open #1 pace_mgmt_open(df49f770,df01ec00) qnum 0
+[    7.218872] sys/wlc.c:33314 wlc_enable_probe_req wl2: wlc_enable_probe_req: state down, deferring setting of host flags
+BLE hci: Set Powered failed with status 0x11 (Invalid Index)
+BLE hci: Attaching Primary controller to /dev/ttyS1
+BLE hci: Switched line discipline from 0 to 15
+BLE hci: Device index 0 attached
+BLE hci: Set Powered complete, settings: powered br/edr
+BLE RAM-based hardware initialization
+|▒▒▒▒▒▒|▒]▒
+
+Incorrect response
+Welcome to Mist APH
+mist_aph login: 1970/01/01 00:00:44 Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+1970/01/01 00:00:44 called from connector/connector.go:1707
+Error log for /usr/sbin/ep-control created in /rw/var/log/errors/ep-control.report.1
+1970/01/01 00:00:58 Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+1970/01/01 00:00:58 called from connector/connector.go:1707
+
