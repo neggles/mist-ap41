@@ -37,7 +37,17 @@ Marked J13, pin 1 marked on board.
 
 | Pin    | 1   | 2    | 3   | 4   |
 |--------|-----|------|-----|-----|
-| Signal | 3V3 | ??   | ??  | GND |
+| Signal | 3V3 | RX   | TX  | GND |
+
+seems to be some kind of serial port? but it doesn't dump consistent data, and it's not ascii characters.
+
+## JTAG header
+
+there's a big ole JTAG header hiding under the security/scan radio, it's a 20-pin and it looks like it's just a straight 1:1 connection to a SEGGER J-Link
+
+it's a giant bitch to get access without removing all the heatsinks and antennas first though
+
+will probably have to do that in order to dump the flash, though - doesn't seem to be any other way in without a NAND clip...
 
 # Software info
 
