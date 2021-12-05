@@ -43,6 +43,8 @@ seems to be some kind of serial port? but it doesn't dump consistent data, and i
 
 ## JTAG header
 
+### updated 05/Dec/2021 - JTAG seems to be disabled and i am not super surprised
+
 there's a big ole JTAG header hiding under the security/scan radio, it's a 20-pin and it looks like it's just a straight 1:1 connection to a SEGGER J-Link
 
 it's a giant bitch to get access without removing all the heatsinks and antennas first though
