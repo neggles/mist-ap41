@@ -1,5 +1,9 @@
 # linux login challenge
 
+it's just cram-md5 ffs
+
+## old info
+
 when you try to log in, you get hit with a challenge like this one ( from an attempt to log in as root):
 
 `BQXxkNC0yMC1iMC0wMC0yNi1hMnxyb290fF7RqUxej83jpoB9KKq7lVmQWpCbaEE2OQjMu5f9AyZG`
