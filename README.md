@@ -9,9 +9,9 @@ notes and docs and whatnot from my shenanigans with the Juniper / Mist Systems A
 | SoC        | Broadcom | BCM58625BB1KF12G |                                            |
 | RAM        | SK Hynix | H5TQ2G63GFR x2   | 2Gb x16 DDR3L SDRAM (total 512MiB)         |
 | Flash      | Micron   | MT29F2G08ABAGAWP | 2Gb x8 Parallel NAND flash with on-die ECC |
-| 2GHz Radio |          |                  |                                            |
-| 5GHz Radio |          |                  |                                            |
-| Scan Radio |          |                  |                                            |
+| 2GHz Radio | Broadcom | BCM43465KMMLW1G  | 4x4 dual band 802.11ac Wave2 radio         |
+| 5GHz Radio | Broadcom | BCM43465KMMLW1G  | 4x4 dual band 802.11ac Wave2 radio         |
+| Scan Radio | Broadcom | ?                |                                            |
 | BLE Radio  |          |                  |                                            |
 |            |          |                  |                                            |
 | EEPROM     | STMicro  | 24C64WP          | 64Kbit I2C EEPROM                          |
