@@ -1,0 +1,579 @@
+/dts-v1/;
+
+/ {
+	#address-cells = <0x01>;
+	#size-cells = <0x01>;
+	compatible = "mist,aph", "brcm,nsp";
+	model = "Mist APH";
+	interrupt-parent = <0x01>;
+
+	chosen {
+		bootargs = "console=ttyS0,115200 maxcpus=2 mem=512M  earlyprintk root=/dev/mtdblock3 rootfstype=squashfs rw init=/sbin/preinit";
+	};
+
+	aliases {
+		serial0 = "/serial@18000300";
+		serial1 = "/serial@18000400";
+	};
+
+	memory {
+		device_type = "memory";
+		reg = <0x00 0x00>;
+	};
+
+	cpus {
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+
+		cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a9";
+			next-level-cache = <0x02>;
+			reg = <0x00>;
+		};
+
+		cpu@1 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a9";
+			next-level-cache = <0x02>;
+			reg = <0x01>;
+		};
+	};
+
+	clocks {
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		ranges;
+
+		oscillator {
+			#clock-cells = <0x00>;
+			compatible = "fixed-clock";
+			clock-frequency = <0x17d7840>;
+			linux,phandle = <0x03>;
+			phandle = <0x03>;
+		};
+
+		lcpll@1803f100 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-lcpll-clk";
+			reg = <0x1803f100 0x14>;
+			clocks = <0x03>;
+			channel = <0x04>;
+			linux,phandle = <0x05>;
+			phandle = <0x05>;
+		};
+
+		genpll@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-clk";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x03>;
+			channel = <0x06>;
+			linux,phandle = <0x04>;
+			phandle = <0x04>;
+		};
+
+		genpll_ch0@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x00>;
+		};
+
+		genpll_ch1@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x01>;
+		};
+
+		genpll_ch2@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x02>;
+		};
+
+		genpll_ch3@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x03>;
+		};
+
+		genpll_ch4@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x04>;
+		};
+
+		genpll_ch5@1803f140 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-genpll-ch";
+			reg = <0x1803f140 0x24>;
+			clocks = <0x04>;
+			channel = <0x05>;
+			linux,phandle = <0x07>;
+			phandle = <0x07>;
+		};
+
+		lcpll_ch0@1803f100 {
+			compatible = "brcm,iproc-lcpll-ch";
+			reg = <0x1803f100 0x14>;
+			#clock-cells = <0x00>;
+			clocks = <0x05>;
+			channel = <0x00>;
+		};
+
+		lcpll_ch1@1803f100 {
+			compatible = "brcm,iproc-lcpll-ch";
+			reg = <0x1803f100 0x14>;
+			#clock-cells = <0x00>;
+			clocks = <0x05>;
+			channel = <0x01>;
+		};
+
+		lcpll_ch2@1803f100 {
+			compatible = "brcm,iproc-lcpll-ch";
+			reg = <0x1803f100 0x14>;
+			#clock-cells = <0x00>;
+			clocks = <0x05>;
+			channel = <0x02>;
+		};
+
+		lcpll_ch3@1803f100 {
+			compatible = "brcm,iproc-lcpll-ch";
+			reg = <0x1803f100 0x14>;
+			#clock-cells = <0x00>;
+			clocks = <0x05>;
+			channel = <0x03>;
+		};
+
+		arm_clk@19000000 {
+			compatible = "brcm,iproc-arm-a9pll";
+			reg = <0x19000000 0x1000>;
+			#clock-cells = <0x00>;
+			clocks = <0x03>;
+			linux,phandle = <0x06>;
+			phandle = <0x06>;
+		};
+
+		periph_clk@19000000 {
+			compatible = "brcm,iproc-arm-ch";
+			reg = <0x19000000 0x1000>;
+			#clock-cells = <0x00>;
+			clocks = <0x06>;
+			channel = <0x03>;
+			linux,phandle = <0x09>;
+			phandle = <0x09>;
+		};
+
+		apb0_free@19000000 {
+			compatible = "brcm,iproc-arm-ch";
+			reg = <0x19000000 0x1000>;
+			#clock-cells = <0x00>;
+			clocks = <0x06>;
+			channel = <0x00>;
+		};
+
+		arm_switch@19000000 {
+			compatible = "brcm,iproc-arm-ch";
+			reg = <0x19000000 0x1000>;
+			#clock-cells = <0x00>;
+			clocks = <0x06>;
+			channel = <0x01>;
+		};
+
+		apb_clk@19000000 {
+			compatible = "brcm,iproc-arm-ch";
+			reg = <0x19000000 0x1000>;
+			#clock-cells = <0x00>;
+			clocks = <0x06>;
+			channel = <0x02>;
+		};
+
+		uart_clk@19000000 {
+			#clock-cells = <0x00>;
+			compatible = "brcm,iproc-uart-clk";
+			reg = <0x19000000 0x1000 0x18000000 0x100>;
+			clocks = <0x07>;
+			linux,phandle = <0x08>;
+			phandle = <0x08>;
+		};
+	};
+
+	serial@18000300 {
+		compatible = "snps,dw-apb-uart";
+		reg = <0x18000300 0x100>;
+		interrupts = <0x00 0x55 0x04>;
+		clocks = <0x08>;
+		status = "okay";
+		dma-names = "rx", "tx";
+	};
+
+	serial@18000400 {
+		compatible = "snps,dw-apb-uart";
+		reg = <0x18000400 0x100>;
+		interrupts = <0x00 0x55 0x04>;
+		clocks = <0x08>;
+		status = "okay";
+		dma-names = "rx", "tx";
+	};
+
+	interrupt-controller@19021000 {
+		compatible = "arm,cortex-a9-gic";
+		#interrupt-cells = <0x03>;
+		#address-cells = <0x00>;
+		interrupt-controller;
+		reg = <0x19021000 0x1000 0x19020100 0x100>;
+		linux,phandle = <0x01>;
+		phandle = <0x01>;
+	};
+
+	l2-cache {
+		compatible = "arm,pl310-cache";
+		reg = <0x19022000 0x1000>;
+		cache-unified;
+		cache-level = <0x02>;
+		linux,phandle = <0x02>;
+		phandle = <0x02>;
+	};
+
+	bus@18000000 {
+		compatible = "brcm,bus-aix";
+		reg = <0x18000000 0x1000>;
+	};
+
+	pcie@18012000 {
+		compatible = "brcm,iproc-pcie";
+		reg = <0x18012000 0x1000 0x18032000 0x1000>;
+		interrupts = <0x00 0x7f 0x00 0x00 0x80 0x00 0x00 0x81 0x00 0x00 0x82 0x00 0x00 0x83 0x00 0x00 0x84 0x00>;
+		bus-range = <0x00 0xff>;
+		#address-cells = <0x03>;
+		#size-cells = <0x02>;
+		device_type = "pci";
+		ranges = <0x81000000 0x00 0x00 0x00 0x00 0x10000 0x82000000 0x00 0x8000000 0x8000000 0x00 0x8000000>;
+		phy-addr = <0x00>;
+		status = "okay";
+	};
+
+	pcie@18013000 {
+		compatible = "brcm,iproc-pcie";
+		reg = <0x18013000 0x1000 0x18032000 0x1000>;
+		interrupts = <0x00 0x85 0x00 0x00 0x86 0x00 0x00 0x87 0x00 0x00 0x88 0x00 0x00 0x89 0x00 0x00 0x8a 0x00>;
+		bus-range = <0x00 0xff>;
+		#address-cells = <0x03>;
+		#size-cells = <0x02>;
+		device_type = "pci";
+		ranges = <0x81000000 0x00 0x00 0x00 0x00 0x10000 0x82000000 0x00 0x40000000 0x40000000 0x00 0x8000000>;
+		phy-addr = <0x01>;
+		status = "okay";
+	};
+
+	pcie@18014000 {
+		compatible = "brcm,iproc-pcie";
+		reg = <0x18014000 0x1000 0x18032000 0x1000>;
+		interrupts = <0x00 0x8b 0x00 0x00 0x8c 0x00 0x00 0x8d 0x00 0x00 0x8e 0x00 0x00 0x8f 0x00 0x00 0x90 0x00>;
+		bus-range = <0x00 0xff>;
+		#address-cells = <0x03>;
+		#size-cells = <0x02>;
+		device_type = "pci";
+		ranges = <0x81000000 0x00 0x00 0x00 0x00 0x10000 0x82000000 0x00 0x48000000 0x48000000 0x00 0x8000000>;
+		phy-addr = <0x0f>;
+		status = "okay";
+	};
+
+	local-timer@19020600 {
+		compatible = "arm,cortex-a9-twd-timer";
+		reg = <0x19020600 0x100>;
+		interrupts = <0x01 0x0d 0x304>;
+		clocks = <0x09>;
+	};
+
+	timer@19020200 {
+		compatible = "arm,cortex-a9-global-timer";
+		reg = <0x19020200 0x100>;
+		interrupts = <0x01 0x0b 0x04>;
+		clocks = <0x09>;
+	};
+
+	amba {
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		compatible = "arm,amba-bus", "simple-bus";
+		interrupt-parent = <0x01>;
+		ranges;
+
+		wdt@18039000 {
+			compatible = "arm,sp805", "arm,primecell";
+			reg = <0x18039000 0x1000>;
+			interrupts = <0x00 0x7e 0x04>;
+			clocks = <0x07>;
+			clock-names = "apb_pclk";
+		};
+	};
+
+	pwm@0x18031000 {
+		compatible = "brcm,iproc-pwm";
+		reg = <0x18031000 0x24>;
+		#pwm-cells = <0x02>;
+	};
+
+	gpio@0x18000060 {
+		compatible = "brcm,iproc-gpio,cca";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		#gpio-cells = <0x02>;
+		reg = <0x18000060 0x50 0x18000000 0x50 0x18020000 0x200>;
+		ngpios = <0x20>;
+		gpio-controller;
+		interrupt-controller;
+		interrupts = <0x00 0x55 0x04>;
+		linux,phandle = <0x0b>;
+		phandle = <0x0b>;
+	};
+
+	gpio@0x18030000 {
+		compatible = "brcm,iproc-gpio,cmicm";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x18030000 0x50>;
+		ngpios = <0x04>;
+		gpio-controller;
+		interrupt-controller;
+		interrupts = <0x00 0x57 0x04>;
+	};
+
+	usbphy@0x18115000 {
+		#phy-cells = <0x00>;
+		compatible = "bcm,usb-phy";
+		reg = <0x18115000 0x1000>;
+		io_control_val = <0x3def>;
+		io_control_mask = <0xffff>;
+		status = "okay";
+		linux,phandle = <0x0a>;
+		phandle = <0x0a>;
+	};
+
+	usb@0x1802A000 {
+		compatible = "generic-ehci";
+		reg = <0x1802a000 0x100>;
+		interrupts = <0x00 0x4f 0x04>;
+		phys = <0x0a>;
+		phy-names = "bcm-usbphy";
+		status = "ok";
+	};
+
+	usb@0x1802B000 {
+		compatible = "generic-ohci";
+		reg = <0x1802b000 0x100>;
+		interrupts = <0x00 0x4f 0x04>;
+		phys = <0x0a>;
+		phy-names = "bcm-usbphy";
+		status = "ok";
+	};
+
+	phy@0x18104408 {
+		compatible = "brcm,iproc-usb3-phy";
+		reg = <0x18104400 0x410 0x18000000 0x04 0x18032000 0x08>;
+		io_control_val = <0x7df3fd>;
+		io_control_mask = <0x7df7fd>;
+		status = "okay";
+	};
+
+	usb@0x18029000 {
+		compatible = "brcm,xhci-iproc";
+		reg = <0x18029000 0x1000>;
+		interrupts = <0x00 0x50 0x04>;
+	};
+
+	spi@0x18027200 {
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		compatible = "bcm,qspi_iproc";
+		reg = <0x18027200 0x187 0x18027000 0x4f 0x18027100 0x23 0x180273a0 0x1b 0x1811c408 0x03 0x1803e000 0x03>;
+		interrupts = <0x00 0x68 0x04 0x00 0x6d 0x04>;
+		clocks = <0x07>;
+		clock-names = "genpll_ch5";
+	};
+
+	nand@0x18026000 {
+		compatible = "brcm,iproc-nand";
+		reg = <0x18026000 0x1000 0x1811b000 0x1000 0x1803f2a0 0x04>;
+		interrupts = <0x00 0x44 0x04>;
+		#chip-selects = <0x01>;
+		timing-mode = <0x00>;
+		wp-mode = <0x01>;
+		hw-auto-init = <0x01>;
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		timing1 = <0x44442235>;
+		timing2 = <0x80000e45>;
+	};
+
+	ethernet@0x18022000 {
+		compatible = "brcm,iproc-gmac";
+		reg = <0x18022000 0x1000>;
+		interrupts = <0x00 0x93 0x00>;
+		mac-address = [00 00 00 00 00 00];
+		phy-mode = "gmii";
+	};
+
+	ethernet@0x18023000 {
+		compatible = "brcm,iproc-gmac";
+		reg = <0x18023000 0x1000>;
+		interrupts = <0x00 0x94 0x00>;
+		mac-address = [00 00 00 00 00 00];
+		phy-mode = "gmii";
+	};
+
+	ethernet@0x18024000 {
+		compatible = "brcm,iproc-gmac";
+		reg = <0x18024000 0x1000>;
+		interrupts = <0x00 0x95 0x00>;
+		mac-address = [00 00 00 00 00 00];
+		phy-mode = "gmii";
+	};
+
+	ethernet@0x18025000 {
+		compatible = "brcm,iproc-gmac";
+		reg = <0x18025000 0x1000>;
+		interrupts = <0x00 0x96 0x00>;
+		mac-address = [00 00 00 00 00 00];
+		phy-mode = "gmii";
+	};
+
+	mdio@0x18032000 {
+		compatible = "brcm,iproc-mdio";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x18032000 0x1000>;
+	};
+
+	cca_otp@0x18000000 {
+		compatible = "brcm,iproc-cc-otp";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x18000000 0x1000>;
+	};
+
+	dmu_otp@0x1803f000 {
+		compatible = "brcm,iproc-dmu-otp";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x1803f000 0x1000>;
+	};
+
+	pka@0x1803A000 {
+		compatible = "brcm,iproc-pka";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x1803a000 0x100>;
+	};
+
+	robo@0x18036000 {
+		compatible = "brcm,iproc-robo";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x18036000 0x1000>;
+	};
+
+	axitrace@0x19003000 {
+		compatible = "brcm,iproc-axitrace";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x19003000 0x1000>;
+	};
+
+	axitrace@0x19004000 {
+		compatible = "brcm,iproc-axitrace";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x19004000 0x1000>;
+	};
+
+	axitrace@0x19007000 {
+		compatible = "brcm,iproc-axitrace";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		reg = <0x19007000 0x1000>;
+	};
+
+	i2c1 {
+		compatible = "i2c-gpio";
+		gpios = <0x0b 0x05 0x00 0x0b 0x04 0x00>;
+		i2c-gpio,delay-us = <0x02>;
+		status = "ok";
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+
+		temp@48 {
+			compatible = "ti,tmp75";
+			reg = <0x48>;
+		};
+
+		eeprom@52 {
+			compatible = "st,24c64";
+			pagesize = <0x20>;
+			reg = <0x52>;
+		};
+
+		atmega@04 {
+			compatible = "mist,aph-atmega";
+			reg = <0x04>;
+		};
+
+		atmega-boot@05 {
+			compatible = "mist,aph-atmega-boot";
+			reg = <0x05>;
+		};
+	};
+
+	i2c2 {
+		compatible = "i2c-iproc";
+		interrupts = <0x00 0x59 0x00>;
+		reg = <0x18038000 0x100>;
+		status = "ok";
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+
+		atmega@04 {
+			compatible = "mist,aph-atmega-fast";
+			reg = <0x04>;
+		};
+
+		gpio@20 {
+			compatible = "ti,tca9555", "nxp,pcf8575";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+			gpio-controller;
+			reg = <0x20>;
+			output-low;
+			line-name = "antsw";
+			status = "ok";
+		};
+
+		eeprom@52 {
+			compatible = "st,24c64";
+			pagesize = <0x20>;
+			reg = <0x52>;
+		};
+	};
+
+	blesw {
+		compatible = "brcm,iproc-gpio,cca";
+		gpios = <0x0b 0x1d 0x00 0x0b 0x1e 0x00>;
+		output-low;
+		status = "ok";
+	};
+
+	hwmon@0x1803f2c0 {
+		compatible = "brcm,bcm58522-hwmon";
+	};
+};
