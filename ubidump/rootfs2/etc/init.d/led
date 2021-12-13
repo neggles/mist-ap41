@@ -1,0 +1,54 @@
+#!/bin/sh
+# starts the led driver
+
+# define FIRMWARE_MODEL
+. /etc/mist/version
+
+start() {
+  case $FIRMWARE_MODEL in
+    aph)
+      modprobe aph_atmega
+      # for rev 2 APHs: work around broken ATmega reset signal by explicitly clearing the state which might be left over from the reboot
+      echo 0 >/sys/class/leds/priority_status/brightness
+      # TODO maybe: set LED brightness immediately from some to-be-saved value in /rw/... (do note that on APH LED brightness is already saved in the ATmega's nvram)
+    ;;
+    apl|vulcano)
+      modprobe leds-apl
+    ;;
+  esac
+}
+
+stop() {
+  case $FIRMWARE_MODEL in
+    aph)
+      # display the halt/powerdown on the LED. 10 is the value of LED_STATUS_HALTED in <aph-atmega>/inc/aph-atmega/regs.h
+      echo 10 >/sys/class/leds/priority_status/brightness
+      echo 0 >/sys/class/leds/status/brightness # more rev 2 APH workaround. reset the standard state
+    ;;
+    apl|vulcano)
+      # display the halted state
+      echo 10 >/sys/class/leds/priority_status/brightness
+      rmmod leds-apl
+    ;;
+  esac
+}
+
+restart() {
+  stop
+  start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac

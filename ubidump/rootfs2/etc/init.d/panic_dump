@@ -1,0 +1,58 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+  # compute this AP's id
+  ID=$(hexdump </proc/device-tree/chosen/mac-address -e '6/1 "%02x-"' | cut -c 1-17)
+
+  # find the panic partition
+  MTD=`grep </proc/mtd panic|awk '{sub(/:/,"",$1); print $1}'`
+
+  # do we have a panic dump?
+  if nanddump 2>/dev/null -a /dev/$MTD -l 1024 | grep -q mist_panic_dump; then
+    # get the firmware version from the panic dump
+    VERSION=`nanddump 2>/dev/null -a /dev/$MTD -l 2048 | awk -F= '/VERSION/ {print $2}'`
+    # get firmware model from current version (we expect it to still be the same)
+    . /etc/mist/version
+    TBZ="panic_${FIRMWARE_MODEL}_${VERSION}.tar.bz2"
+    echo "panic dump detected: saving to /var/log/$TBZ"
+
+    # compress and save the panic dump
+    nanddump 2>/dev/null -a /dev/$MTD | bzip2 > /var/log/$TBZ
+
+    # Check and dump reboot time
+    REBOOT_INFO=`nanddump 2>/dev/null -a /dev/$MTD -l 2048 | grep '::panic'`
+    echo $REBOOT_INFO > /rw/etc/mist/ep-control/last_reboot_info.txt
+
+    # reset the chamber for Skywalker
+    flash_erase -q /dev/$MTD 0 0
+
+    # leave a copy in /rw/var/log/panics so ep-control might upload it
+    cat >/rw/var/log/panics/$TBZ~ <<EOF
+{
+  "ID": "$ID",
+  "Filetype": "kernel-panic",
+  "FirmwareVersion": "$VERSION",
+  "FirmwareModel": "$FIRMWARE_MODEL",
+  "Bodytype": "tar.bz2"
+}
+
+EOF
+    cat </var/log/$TBZ >>/rw/var/log/panics/$TBZ~
+    mv /rw/var/log/panics/$TBZ~ /rw/var/log/panics/$TBZ
+  fi
+
+  # load panic_dump module
+  modprobe panic_dump
+
+  # pre-save some system information
+  INFO=/proc/panic_dump/info
+  echo "# AP identity" > $INFO
+  echo "ID=$ID" > $INFO
+  echo > $INFO
+  cat /etc/mist/version > $INFO
+  echo > $INFO
+  echo "# manufacturing data:" > $INFO
+  ubootenv r > $INFO
+  ;;
+esac

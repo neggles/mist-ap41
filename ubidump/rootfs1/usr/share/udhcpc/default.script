@@ -1,0 +1,78 @@
+#!/bin/sh -x
+# log the output/execution of this script
+echo "$0 starting"
+exec >>/var/log/dhcp_client.log 2>&1
+
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+# and later by Nicolas Dade <nic.dade@mistsys.com>
+
+echo "-----------------------------------------------"
+date
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
+
+RESOLV_CONF="/tmp/resolv.conf"
+[ -e $RESOLV_CONF ] || touch $RESOLV_CONF
+TMPFILE=${RESOLV_CONF}~
+LOCKFILE="/var/lock/.resolv.conf.lock" # must match <mist-ap>/ep/config/apply/apply_arm.go and any other script which touches resolv.conf
+
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+
+# pull in whatever variables might be setup for us by ep-control
+# (hacky, but this is DHCP after all)
+[ ! -r /tmp/udhcpc.env ] || . /tmp/udhcpc.env
+
+case "$1" in
+	deconfig)
+		/sbin/ip link set dev $interface up
+		/sbin/ip addr flush dev $interface
+
+		# drop DNS servers learned from this interface
+		# /etc/resolv.conf is a symlink to /tmp/resolv.conf, so take care.
+		# This is done within an flock on /etc/resolv.conf to prevent
+		# races with other copies of this script, and with ep-control
+		# adding/removing static DNS server entries.
+		(
+			flock 3
+			grep -vE "# $interface\$" <$RESOLV_CONF >$TMPFILE
+			mv $TMPFILE $RESOLV_CONF
+		) 3>$LOCKFILE # run in a subshell so the lockfile is closed and thus released automatically when the subshell exits
+		;;
+
+	leasefail|nak)
+		;;
+
+	renew|bound)
+		/sbin/ip addr replace dev $interface $ip/$subnet $BROADCAST
+
+	# ndade@mist: don't accept default routes and DNS servers except from the DEFAULT_GW_INTERFACE
+	# which by default is 'vlan1', but in the case of l2tp management tunnels, can be otherwise.
+	if [ $interface = "${DEFAULT_GW_INTERFACE:-vlan1}" ]; then
+		if [ -n "$router" ] ; then
+			for i in $router ; do
+				/sbin/ip route replace default via $i dev $interface
+				break # only use the 1st default gateway (who uses more?)
+			done
+		fi
+
+		# remove and replace this interface's lines in resolv.conf
+		(
+			flock 3
+			grep -vE "# $interface\$" <$RESOLV_CONF >$TMPFILE
+			[ -n "$domain" ] && echo "search $domain # $interface" >>$TMPFILE
+			for i in $dns ; do
+				echo "nameserver $i # $interface" >>$TMPFILE
+			done
+			mv $TMPFILE $RESOLV_CONF
+		) 3>$LOCKFILE # run in a subshell so the lockfile is closed and thus released automatically when the subshell exits
+	fi # end of DEFAULT_GW_INTERFACE section
+		;;
+esac
+
+HOOK_DIR="$0.d"
+for hook in "${HOOK_DIR}/"*; do
+    [ -f "${hook}" -a -x "${hook}" ] || continue
+    "${hook}" "${@}"
+done
+
+exit 0

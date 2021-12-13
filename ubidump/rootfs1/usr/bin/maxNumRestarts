@@ -1,0 +1,12 @@
+#!/bin/sh
+# export max num restarts allowed per process before rebooting the AP
+# allow infinite restarts for developer mode APs, and only 7 restarts
+# for normal APs
+
+developer=$(ubootenv r developer)
+if [ -n "$developer" ]; then
+	numRestart=-1
+else
+    numRestart=7
+fi
+export numRestart

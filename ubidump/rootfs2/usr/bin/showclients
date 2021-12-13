@@ -1,0 +1,31 @@
+#!/bin/sh
+# dump out the list of wifi clients
+#  [-s]     show statistics for each client
+
+WLS=`/sbin/ip link | grep 'wl[0-9]' | awk '{print $2}' | sed 's/:$//'`
+
+if [ "$1" = "-h" ]; then
+  echo "showclients [-s]"
+  exit 1
+fi
+
+for wl in $WLS; do
+  STAS=`/usr/sbin/wl -i $wl authe_sta_list`
+  for sta in $STAS; do
+    case "$sta" in
+    authe_sta_list)
+      ;; # ignore the 1st word
+    *)
+      case "$1" in
+      -s) # full stat dump
+        echo STA $sta on $wl ----------------------------------
+        /usr/sbin/wl -i $wl sta_info $sta
+        ;;
+      *) # 1 line per client
+        echo $sta \($wl\)
+        ;;
+      esac
+      ;;
+    esac
+  done
+done

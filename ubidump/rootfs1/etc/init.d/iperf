@@ -1,0 +1,23 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo -n "Starting iperf: "
+    start-stop-daemon -b -S -q -m -p /var/run/iperf.pid --exec /usr/bin/iperf3 -- -s
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping iperf: "
+    start-stop-daemon -K -q -p /var/run/iperf.pid
+    echo OK
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?

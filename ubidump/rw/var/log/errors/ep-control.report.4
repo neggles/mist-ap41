@@ -1,0 +1,79 @@
+{
+ "ID": "d4-20-b0-00-26-a2",
+ "Cmd": "ep-control",
+ "Command": [ "/usr/sbin/ep-control", "-pprof-port", "2000", "-new-dhcpc", "-partition", "2" ],
+ "FirmwareVersion": "apfw-0.3.15439-cersei-7b57",
+ "FirmwareModel": "aph",
+ "When": "1970-01-01T00:00:06Z.213036",
+ "Uptime": 6,
+ "Filetype": "ep-control-report",
+ "Bodytype": "text",
+ "Reason": "Radio r2 not detected in wl driver"
+}
+
+wrapper 1970-01-01T00:00:06Z.213088: creating /rw/var/log/errors/ep-control.report.4 to record an error in /usr/sbin/ep-control
+wrapper :------cut--here---------------------------------------------------------------------------------
+wrapper 1970-01-01T00:00:05Z.491074: started /usr/sbin/ep-control for the 1th time, pid 165
+DBG> 1970-01-01T00:00:05.977784Z G1 eeprom.go:119: map[ethaddr:D4:20:B0:00:26:A2 mfg_date:2019/09/04 ethact:bcmiproc_eth-0 gatewayip:192.168.1.1 mfg_hardware_revision:F10 mfg_magic:7K7HERDPZK6DLAL mfg_serial_number:A0035190202B6 bootdelay:2 stdin:serial mfg_sku:AP41-WW mfg_radio_lot_code:r0:CBW0753201,r1:CBW0753201,r2:CBW0753201 bootcmd:bootx mtdparts:mtdparts=iproc_nand.0:128k(spl),1m(uboot1),1m(uboot2),512k(panic),-(ubi) netmask:255.255.255.0 mfg_country_origin:TW baudrate:115200 mfg_hardware_type:aph mfg_hardware_model:AP41-WW mtdids:nand0=iproc_nand.0 serverip:192.168.1.2 stderr:serial stdout:serial mfg_country_code:WW ipaddr:192.168.1.20]
+Listening for debug requests at "127.0.0.1:2000"
+DBG> 1970-01-01T00:00:06.053924Z G1 main.go:125: boot count 5
+DBG> 1970-01-01T00:00:06.056913Z G1 conn_config.go:121: ID "d4-20-b0-00-26-a2" from "/sys/class/net/aximac1/address"
+DBG> 1970-01-01T00:00:06.05733Z G1 conn_config.go:136: Model "AP41-WW" from EEPROM's mfg_hardware_model
+DBG> 1970-01-01T00:00:06.057383Z G1 conn_config.go:147: SKU "AP41-WW" from EEPROM
+DBG> 1970-01-01T00:00:06.057469Z G1 conn_config.go:155: serial# "A0035190202B6" from EEPROM
+DBG> 1970-01-01T00:00:06.058196Z G1 conn_config.go:175: FirmwareModel "aph" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.058264Z G1 conn_config.go:172: FirmwareVersion "apfw-0.3.15439-cersei-7b57" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.058317Z G1 conn_config.go:181: FirmwareBuildTime "2019-10-18_01:27:17_UTC" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.0921Z G1 conn_config.go:221: Using "/etc/mist/ep-control/cloud.ini"
+DBG> 1970-01-01T00:00:06.092202Z G1 conn_config.go:235: using cloud ENV "production"
+DBG> 1970-01-01T00:00:06.092645Z G1 main.go:142: Current Firmware Partition 2
+DBG> 1970-01-01T00:00:06.092697Z G1 main.go:146: No good firmware per partition list file found. Will Create one
+DBG> 1970-01-01T00:00:06.093538Z G1 led_aph.go:122: LED set(status, 1)
+DBG> 1970-01-01T00:00:06.093788Z G1 led_aph.go:122: LED set(R, 0)
+DBG> 1970-01-01T00:00:06.094162Z G1 led_aph.go:122: LED set(G, 0)
+DBG> 1970-01-01T00:00:06.094506Z G1 led_aph.go:122: LED set(B, 0)
+DBG> 1970-01-01T00:00:06.094833Z G1 led_aph.go:122: LED set(error, 0)
+DBG> 1970-01-01T00:00:06.095166Z G1 led_aph.go:122: LED set(priority_status, 0)
+DBG> 1970-01-01T00:00:06.095478Z G1 led_aph.go:122: LED set(network, 0)
+DBG> 1970-01-01T00:00:06.097885Z G8 power_budget.go:125: open /tmp/ep-control/power_budget: no such file or directory
+DBG> 1970-01-01T00:00:06.098998Z G1 read.go:15: Can't open "/rw/etc/mist/ep-control/local_boot.config": open /rw/etc/mist/ep-control/local_boot.config: no such file or directory
+DBG> 1970-01-01T00:00:06.099126Z G1 main.go:182: trying "/rw/etc/mist/ep-control/boot.config"
+DBG> 1970-01-01T00:00:06.099212Z G1 read.go:15: Can't open "/rw/etc/mist/ep-control/boot.config": open /rw/etc/mist/ep-control/boot.config: no such file or directory
+DBG> 1970-01-01T00:00:06.099948Z G1 connector.go:226: connector.New()
+DBG> 1970-01-01T00:00:06.101389Z G1 connector.go:1195: Register("console-message")
+DBG> 1970-01-01T00:00:06.101446Z G1 connector.go:1195: Register("closing-because")
+DBG> 1970-01-01T00:00:06.101489Z G1 connector.go:1195: Register("ep-exec")
+DBG> 1970-01-01T00:00:06.106331Z G14 errorfiles.go:61: Start()
+DBG> 1970-01-01T00:00:06.10867Z G9 connector.go:315: Connector 0x125163f0 master(true)
+DBG> 1970-01-01T00:00:06.109156Z G11 wxlan.go:24: in WxlanMain
+DBG> 1970-01-01T00:00:06.109215Z G11 connector.go:1195: Register("wxlan-config-change")
+DBG> 1970-01-01T00:00:06.112506Z G1 main.go:311: vlan1_uses_dhcp = true, use_new_dhcpc true
+DBG> 1970-01-01T00:00:06.113694Z G1 apply_arm.go:147: Init(vlan1_uses_dhcp=true, _use_new_dhcpc=true, _no_udhcpc=false)
+DBG> 1970-01-01T00:00:06.114478Z G1 apply_arm.go:1185: creating VLANState 1
+DBG> 1970-01-01T00:00:06.114551Z G1 apply_arm.go:1202: VLANState 1.addPortCmd(3)
+DBG> 1970-01-01T00:00:06.114596Z G1 apply_arm.go:1202: VLANState 1.addPortCmd(0)
+DBG> 1970-01-01T00:00:06.116879Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r0" "isup"]
+DBG> 1970-01-01T00:00:06.12453Z G12 ip.go:38: created "tun0"
+0
+DBG> 1970-01-01T00:00:06.170746Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r0" "isup"]  done
+DBG> 1970-01-01T00:00:06.171185Z G1 apply_arm.go:2462: Radio r0 detected in wl driver
+DBG> 1970-01-01T00:00:06.171267Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r1" "isup"]
+0
+DBG> 1970-01-01T00:00:06.186864Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r1" "isup"]  done
+DBG> 1970-01-01T00:00:06.186957Z G1 apply_arm.go:2462: Radio r1 detected in wl driver
+DBG> 1970-01-01T00:00:06.187069Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r2" "isup"]
+DBG> 1970-01-01T00:00:06.19017Z G12 ip.go:64: lan_mac d4:20:b0:00:26:a2 from "aximac1"
+DBG> 1970-01-01T00:00:06.190665Z G12 ip.go:84: ip addr add dev tun0 fd28:49be:757:7663:0:d420:b000:26a2/64
+DBG> 1970-01-01T00:00:06.191427Z G12 ip.go:102: ip link set tun0 mtu 1300
+DBG> 1970-01-01T00:00:06.191974Z G12 ip.go:110: ip link set tun0 up
+DBG> 1970-01-01T00:00:06.192299Z G12 connector.go:1195: Register("ip4")
+DBG> 1970-01-01T00:00:06.192365Z G12 connector.go:1195: Register("ip6")
+DBG> 1970-01-01T00:00:06.192466Z G23 ip.go:168: read_from_tun(tun0) starting
+/usr/sbin/wl: wl driver adapter not found
+DBG> 1970-01-01T00:00:06.211337Z G1 apply_arm.go:4379: ["/usr/sbin/wl" "-i" "r2" "isup"] failed: exit status 1
+DBG> 1970-01-01T00:00:06.211454Z G1 apply_arm.go:4489: command "[\"/usr/sbin/wl\" \"-i\" \"r2\" \"isup\"]" failed: exit status 1
+DBG> 1970-01-01T00:00:06.211529Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r2" "isup"]  done
+DBG> 1970-01-01T00:00:06.211574Z G1 apply_arm.go:2457: Radio r2 not detected in wl driver
+---report to cloud---:Radio r2 not detected in wl driver
+
+wrapper 1970-01-01T00:00:06Z.212038: /usr/sbin/ep-control emitted watchstring "---report to cloud---:", "Radio r2 not detected in wl driver"

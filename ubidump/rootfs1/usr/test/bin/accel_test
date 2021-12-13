@@ -1,0 +1,35 @@
+#!/bin/sh
+# configure adn dump out the accelerometer/magnetometer reading
+
+# I2C bus. we use 0 (gpio bitbanged) because iproc-i2c doesn't support smbus mode, which the i2cget tool uses
+BUS=0
+
+# I2C bus address
+ADDR=0x1e
+
+GET="i2cget -y $BUS $ADDR "
+SET="i2cset -y $BUS $ADDR "
+
+# sanity check. read the part id register
+whoami=$($GET 0x0d)
+echo "WHOAMI = $whoami"
+if [ "$whoami" != 0xc7 ] ; then
+  echo "can't detect FXO at bus $BUS, addr $ADDR"
+  exit 1
+fi
+
+# configure for accel+mag readings
+# low-pass filtering (we don't expect the AP to move), and 2g resolution
+$SET 0x2a 0
+$SET 0x5b 0x1f
+$SET 0x5c 0x20
+$SET 0x0e 0
+$SET 0x0f 0x11
+$SET 0x2a 0x0d
+
+# display the readings in a loop
+while true; do
+  echo "X $($GET 1)$($GET 2) Y $($GET 3)$($GET 4) Z $($GET 5)$($GET 6),  MAG $($GET 0x33)$($GET 0x34) $($GET 0x35)$($GET 0x36) $($GET 0x37)$($GET 0x38),  TEMP $($GET 0x51)"
+  usleep 100000
+done
+

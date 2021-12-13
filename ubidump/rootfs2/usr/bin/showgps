@@ -1,0 +1,2 @@
+#!/bin/sh
+stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0

@@ -1,0 +1,11 @@
+#!/bin/sh
+# show state of L2TP tunnels and sessions
+
+# dump out the state of l2tp within ep-control
+echo "ep-control state"
+wget -q -O - http://localhost:2000/debug/l2tp
+echo
+
+# and the state in wxlan.ko
+echo "wxlan.ko state"
+/usr/bin/l2tpv3-ctrl show

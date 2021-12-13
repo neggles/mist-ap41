@@ -1,0 +1,8 @@
+#!/bin/sh
+# show  Sta By IP table in pace
+wget -q -O - http://localhost:2001/debug/dhcp/stabyip
+echo
+
+# and show the .11r/OKC keycache in pace
+wget -q -O - http://localhost:2001/debug/fbt/sta11rkey
+

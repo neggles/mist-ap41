@@ -1,0 +1,55 @@
+#!/bin/sh
+# dump out the list of wlans
+
+#print some machine info to see where we are specially when i am working with multiple
+#base and relays.
+echo "---------------- AP Details---------------"
+MAC=`ubootenv r | grep ethaddr | awk -F"=" '{print $2}'`
+HOST=`hostname`
+echo $HOST : \($MAC\)
+echo "-------------------------------------------"
+
+# get all wl interfaces (note in case of bridge wds base is also a wl interface.)
+WLS=`/sbin/ip link | grep 'wl[0-9]' | awk '{print $2}' | sed 's/:$//'`
+# get all WDS interfaces.
+# 1. In case of base they are wds link to relay.
+# 2. In case of relay they are wds interface with ssid mapped to it. 
+WDS=`/sbin/ip link | grep 'wds' | awk '{print $2}' | sed 's/:$//'`
+
+if [ "$1" = "-h" ]; then
+  echo "showwlans <no options>"
+  exit 1
+fi
+
+# parse your wl interfaces.
+for wl in $WLS; do
+  ssid=`/usr/sbin/wl -i $wl ssid|awk '{print $3}'`
+  bssid=`/usr/sbin/wl -i $wl bssid`
+  dwds_type=`/usr/sbin/wl -i $wl dwds`
+  if [ "$dwds_type" = "1" ]; then
+    echo $wl ssid: $ssid bssid : $bssid "(dwds base bridge interface)"
+  else
+    echo $wl ssid : $ssid bssid : $bssid
+  fi
+done
+
+#1. parse your wds interfaces.
+#2. also check if its WDS link to relay or wds client interface which has ssid mapped to it.
+for wl in $WDS; do
+  ssid=`/usr/sbin/wl -i $wl ssid|awk '{print $3}'`
+  bssid=`/usr/sbin/wl -i $wl bssid`
+
+  # check if ssid is mapped to if its then its a base->relay link
+  /usr/sbin/wl -i $wl ssid > /dev/null 2>&1
+  relay_link=$?
+  if [ $relay_link -eq 0 ]; then
+    rssi=`/usr/sbin/wl -i $wl rssi` > /dev/null 2>&1
+
+    # fix it we only print rssi value on relay and not on base
+    if [ $? -eq 0 ]; then
+      echo $wl ssid : $ssid bssid : $bssid rssi : $rssi "(dwds bridge base<->relay link)"
+    else
+      echo $wl ssid : $ssid bssid : $bssid "(dwds bridge base<->relay link)"
+    fi
+  fi
+done

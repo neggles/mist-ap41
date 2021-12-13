@@ -1,0 +1,153 @@
+#!/usr/bin/lua
+--[[
+bootcfg: manipulate the boot configuration byte stored at the start of the eeprom
+(w)atchdog = enable/disable the watchdog at boot time [0..1]
+(i)mage = select the image to boot [1..2]
+(c)ounter = auto flip the image to boot if this reaches 0 [0..7]
+See: bootcfg.h in the u-boot code (the data format in the eeprom needs to match)
+]]--
+
+eeprom_file = '/sys/devices/i2c1.1/i2c-0/0-0052/eeprom'
+bootcfg_magic = 'ok'
+
+function Set(t)
+  local s = {}
+  for _,v in pairs(t) do s[v] = true end
+  return s
+end
+
+function error(msg)
+  print('error: ' .. msg)
+  os.exit(-1)
+end
+
+-- convert a wic string into an eeprom value
+function str_to_val(s)
+  local w = s:byte(2) - string.byte('0')
+  local i = s:byte(4) - string.byte('0')
+  local c = s:byte(6) - string.byte('0')
+  w = bit32.band(bit32.bnot(w), 1)
+  i = i - 1
+  return bit32.lshift(w, 7) + bit32.lshift(i, 3) + c
+end
+
+-- convert an eeprom value into a wic string
+function val_to_str(x)
+  local w = bit32.band(bit32.rshift(x, 7), 1)
+  w = bit32.band(bit32.bnot(w), 1)
+  local i = bit32.band(bit32.rshift(x, 3), 1)
+  i = i + 1
+  local c = bit32.band(x, 7)
+  return string.format('w%di%dc%d', w, i, c)
+end
+
+-- convert a wic string into a table
+function str_to_table(s)
+  return {['w'] = s:sub(2,2), ['i'] = s:sub(4,4), ['c'] = s:sub(6,6)}
+end
+
+-- convert a table into a wic string
+function table_to_str(t)
+  return string.format('w%si%sc%s', t['w'], t['i'], t['c'])
+end
+
+-- read the eeprom, return a wic string
+function eeprom_rd()
+  local f = io.open(eeprom_file, "rb")
+  if not f then
+    error('unable to open '.. eeprom_file)
+  end
+  local data = f:read(3)
+  f:close()
+  if not data then
+    error('unable to read '.. eeprom_file)
+  end
+  if data:sub(1,2) ~= bootcfg_magic then
+    error('bad magic in '.. eeprom_file)
+  end
+  return val_to_str(string.byte(data, 3))
+end
+
+-- write a wic string to the eeprom
+function eeprom_wr(s)
+  local c = string.char(str_to_val(s))
+  local f = io.open(eeprom_file, "wb")
+  if not f then
+    error('unable to open '.. eeprom_file)
+  end
+  f:write(bootcfg_magic .. c)
+  f:close()
+end
+
+-- process an input argument
+
+valid_w = Set{'0','1'}
+valid_i = Set{'1','2'}
+valid_c = Set{'0','1','2','3','4','5','6','7'}
+valid_key = Set{'w','i','c'}
+
+function process_arg(t, s)
+  -- must be an even length
+  if #s % 2 ~= 0 then
+    error('invalid argument '..s)
+  end
+  -- iterate over the argument string
+  for i = 1, #s - 1, 2 do
+    local k = s:sub(i, i)
+    local v = s:sub(i + 1, i + 1)
+    -- check the key
+    if not valid_key[k] then
+      error('bad key '.. k)
+    end
+    -- check the values
+    if k == 'w' and not valid_w[v] then
+      error('bad value w'.. v)
+    end
+    if k == 'i' and not valid_i[v] then
+      error('bad value i'.. v)
+    end
+    if k == 'c' and not valid_c[v] then
+      error('bad value c'.. v)
+    end
+    -- set the table entry
+    t[k] = v
+  end
+end
+
+function main()
+  local x = eeprom_rd()
+  local t = str_to_table(x)
+
+  if #arg == 1 and arg[1] == 'help' then
+    print(arg[0] ..' [arg]')
+    print('  <cr> - display bootcfg string')
+    print('  w - read watchdog state')
+    print('  i - read image selection')
+    print('  c - read boot counter')
+    print('  w[0..1] - write watchdog state')
+    print('  i[1..2] - write image selection')
+    print('  c[0..7] - write boot counter')
+    os.exit(-1)
+  end
+
+  if #arg == 0 then
+    -- read
+    print(x)
+  elseif #arg == 1 and #arg[1] == 1 then
+    -- read an individual key
+    local k = arg[1]
+    if not valid_key[k] then
+      error('bad key '.. k)
+    end
+    print(t[k])
+  else
+    -- write
+    for i = 1,#arg do
+      process_arg(t, arg[i])
+    end
+    eeprom_wr(table_to_str(t))
+  end
+  os.exit(0)
+end
+
+main()

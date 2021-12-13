@@ -1,0 +1,644 @@
+{
+ "ID": "d4-20-b0-00-26-a2",
+ "Cmd": "ep-control",
+ "Command": [ "/usr/sbin/ep-control", "-pprof-port", "2000", "-new-dhcpc", "-partition", "2" ],
+ "FirmwareVersion": "apfw-0.3.15439-cersei-7b57",
+ "FirmwareModel": "aph",
+ "When": "1970-01-01T00:05:36Z.565736",
+ "Uptime": 336,
+ "Filetype": "ep-control-report",
+ "Bodytype": "text",
+ "Reason": "@nic new dhcpc failed to get an address in 5m30s on vlan1 at uptime 5m37s. See /tmp/dhcp.pcap.1"
+}
+
+wrapper 1970-01-01T00:05:36Z.565804: creating /rw/var/log/errors/ep-control.report.3 to record an error in /usr/sbin/ep-control
+wrapper :------cut--here---------------------------------------------------------------------------------
+wrapper 1970-01-01T00:00:05Z.768975: started /usr/sbin/ep-control for the 1th time, pid 165
+DBG> 1970-01-01T00:00:06.242327Z G1 eeprom.go:119: map[stdin:serial mfg_country_origin:TW baudrate:115200 mfg_hardware_type:aph mfg_date:2019/09/04 mfg_serial_number:A0035190202B6 mfg_sku:AP41-WW bootdelay:2 mfg_hardware_model:AP41-WW mtdids:nand0=iproc_nand.0 serverip:192.168.1.2 stdout:serial netmask:255.255.255.0 mfg_country_code:WW ethaddr:D4:20:B0:00:26:A2 mtdparts:mtdparts=iproc_nand.0:128k(spl),1m(uboot1),1m(uboot2),512k(panic),-(ubi) ethact:bcmiproc_eth-0 mfg_hardware_revision:F10 gatewayip:192.168.1.1 stderr:serial bootcmd:bootx mfg_radio_lot_code:r0:CBW0753201,r1:CBW0753201,r2:CBW0753201 mfg_magic:7K7HERDPZK6DLAL ipaddr:192.168.1.20]
+Listening for debug requests at "127.0.0.1:2000"
+DBG> 1970-01-01T00:00:06.30478Z G1 main.go:125: boot count 4
+DBG> 1970-01-01T00:00:06.308231Z G1 conn_config.go:121: ID "d4-20-b0-00-26-a2" from "/sys/class/net/aximac1/address"
+DBG> 1970-01-01T00:00:06.314894Z G1 conn_config.go:136: Model "AP41-WW" from EEPROM's mfg_hardware_model
+DBG> 1970-01-01T00:00:06.315061Z G1 conn_config.go:147: SKU "AP41-WW" from EEPROM
+DBG> 1970-01-01T00:00:06.31516Z G1 conn_config.go:155: serial# "A0035190202B6" from EEPROM
+DBG> 1970-01-01T00:00:06.316921Z G1 conn_config.go:175: FirmwareModel "aph" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.317063Z G1 conn_config.go:172: FirmwareVersion "apfw-0.3.15439-cersei-7b57" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.31715Z G1 conn_config.go:181: FirmwareBuildTime "2019-10-18_01:27:17_UTC" from "/etc/mist/version"
+DBG> 1970-01-01T00:00:06.464402Z G1 conn_config.go:221: Using "/etc/mist/ep-control/cloud.ini"
+DBG> 1970-01-01T00:00:06.464555Z G1 conn_config.go:235: using cloud ENV "production"
+DBG> 1970-01-01T00:00:06.46503Z G1 main.go:142: Current Firmware Partition 2
+DBG> 1970-01-01T00:00:06.465115Z G1 main.go:146: No good firmware per partition list file found. Will Create one
+DBG> 1970-01-01T00:00:06.465981Z G1 led_aph.go:122: LED set(status, 1)
+DBG> 1970-01-01T00:00:06.466287Z G1 led_aph.go:122: LED set(R, 0)
+DBG> 1970-01-01T00:00:06.466624Z G1 led_aph.go:122: LED set(G, 0)
+DBG> 1970-01-01T00:00:06.46693Z G1 led_aph.go:122: LED set(B, 0)
+DBG> 1970-01-01T00:00:06.467274Z G1 led_aph.go:122: LED set(error, 0)
+DBG> 1970-01-01T00:00:06.46763Z G1 led_aph.go:122: LED set(priority_status, 0)
+DBG> 1970-01-01T00:00:06.467959Z G1 led_aph.go:122: LED set(network, 0)
+DBG> 1970-01-01T00:00:06.471277Z G20 power_budget.go:125: open /tmp/ep-control/power_budget: no such file or directory
+DBG> 1970-01-01T00:00:06.471737Z G1 read.go:15: Can't open "/rw/etc/mist/ep-control/local_boot.config": open /rw/etc/mist/ep-control/local_boot.config: no such file or directory
+DBG> 1970-01-01T00:00:06.471879Z G1 main.go:182: trying "/rw/etc/mist/ep-control/boot.config"
+DBG> 1970-01-01T00:00:06.472016Z G1 read.go:15: Can't open "/rw/etc/mist/ep-control/boot.config": open /rw/etc/mist/ep-control/boot.config: no such file or directory
+DBG> 1970-01-01T00:00:06.472798Z G1 connector.go:226: connector.New()
+DBG> 1970-01-01T00:00:06.47429Z G1 connector.go:1195: Register("console-message")
+DBG> 1970-01-01T00:00:06.474384Z G1 connector.go:1195: Register("closing-because")
+DBG> 1970-01-01T00:00:06.474454Z G1 connector.go:1195: Register("ep-exec")
+DBG> 1970-01-01T00:00:06.475625Z G1 main.go:311: vlan1_uses_dhcp = true, use_new_dhcpc true
+DBG> 1970-01-01T00:00:06.479123Z G1 apply_arm.go:147: Init(vlan1_uses_dhcp=true, _use_new_dhcpc=true, _no_udhcpc=false)
+DBG> 1970-01-01T00:00:06.479958Z G1 apply_arm.go:1185: creating VLANState 1
+DBG> 1970-01-01T00:00:06.480081Z G1 apply_arm.go:1202: VLANState 1.addPortCmd(3)
+DBG> 1970-01-01T00:00:06.480178Z G1 apply_arm.go:1202: VLANState 1.addPortCmd(0)
+DBG> 1970-01-01T00:00:06.48273Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r0" "isup"]
+DBG> 1970-01-01T00:00:06.489212Z G23 wxlan.go:24: in WxlanMain
+DBG> 1970-01-01T00:00:06.489313Z G23 connector.go:1195: Register("wxlan-config-change")
+DBG> 1970-01-01T00:00:06.491765Z G21 connector.go:315: Connector 0x11df82d0 master(true)
+DBG> 1970-01-01T00:00:06.515179Z G26 errorfiles.go:61: Start()
+DBG> 1970-01-01T00:00:06.518082Z G27 proxy.go:114: listening on "/tmp/ep-control-proxy"
+0
+DBG> 1970-01-01T00:00:06.529984Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r0" "isup"]  done
+DBG> 1970-01-01T00:00:06.53043Z G1 apply_arm.go:2462: Radio r0 detected in wl driver
+DBG> 1970-01-01T00:00:06.530512Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r1" "isup"]
+0
+DBG> 1970-01-01T00:00:06.537954Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r1" "isup"]  done
+DBG> 1970-01-01T00:00:06.538054Z G1 apply_arm.go:2462: Radio r1 detected in wl driver
+DBG> 1970-01-01T00:00:06.538124Z G1 apply_arm.go:4478: ["/usr/sbin/wl" "-i" "r2" "isup"]
+0
+DBG> 1970-01-01T00:00:06.54174Z G1 apply_arm.go:4494: ["/usr/sbin/wl" "-i" "r2" "isup"]  done
+DBG> 1970-01-01T00:00:06.54187Z G1 apply_arm.go:2462: Radio r2 detected in wl driver
+DBG> 1970-01-01T00:00:06.542764Z G24 ip.go:38: created "tun0"
+DBG> 1970-01-01T00:00:06.545739Z G1 apply_arm.go:655: "vlan1".Init(&{ {true false false 0 0 20} <nil> <nil> 0.0.0.0 /0 0.0.0.0 0 {false} {false [0.0.0.0 0.0.0.0]} 1})
+DBG> 1970-01-01T00:00:06.546493Z G1 apply_arm.go:892: "vlan1".DHCPStart()
+DBG> 1970-01-01T00:00:06.548548Z G1 dhcpc.go:311: newDhcpc("vlan1", "/var/lib/ep-control/dhcpc/vlan1", mgmt_intf_pri=20, max_lease 0s, reinit true, chaddr 00-00-00-00-00-00, check_only false, bcast_reply false)
+DBG> 1970-01-01T00:00:06.551101Z G1 dhcpc.go:323: setting "vlan1" IFF_UP
+DBG> 1970-01-01T00:00:06.552094Z G24 ip.go:64: lan_mac d4:20:b0:00:26:a2 from "aximac1"
+DBG> 1970-01-01T00:00:06.552497Z G24 ip.go:84: ip addr add dev tun0 fd28:49be:757:7663:0:d420:b000:26a2/64
+DBG> 1970-01-01T00:00:06.556662Z G24 ip.go:102: ip link set tun0 mtu 1300
+DBG> 1970-01-01T00:00:06.556924Z G24 ip.go:110: ip link set tun0 up
+DBG> 1970-01-01T00:00:06.557202Z G24 connector.go:1195: Register("ip4")
+DBG> 1970-01-01T00:00:06.557407Z G24 connector.go:1195: Register("ip6")
+DBG> 1970-01-01T00:00:06.557588Z G11 ip.go:168: read_from_tun(tun0) starting
+DBG> 1970-01-01T00:00:06.559796Z G32 dhcpc.go:521: DHCP client{"vlan1",INIT,0.0.0.0}.dhcpc started, chaddr d4-20-b0-00-26-a2
+DBG> 1970-01-01T00:00:06.569843Z G34 dhcpc.go:1549: DHCP client{"vlan1",INIT,0.0.0.0}.listen() starting
+DBG> 1970-01-01T00:00:06.579506Z G13 main.go:366: waiting for connection
+DBG> 1970-01-01T00:00:06.579664Z G13 led_aph.go:122: LED set(status, 1)
+DBG> 1970-01-01T00:00:06.583621Z G32 dhcpc.go:552: DHCP client{"vlan1",INIT,0.0.0.0} existing addrs []
+DBG> 1970-01-01T00:00:06.584516Z G32 dhcpc.go:796: DHCP client{"vlan1",INIT,0.0.0.0} state change INIT -> SELECTING
+DBG> 1970-01-01T00:00:06.584675Z G32 dhcpc.go:854: entered SELECTING state. XID = bed53da8
+DBG> 1970-01-01T00:00:06.585463Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:06.585843Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:06.587526Z G13 troublecode.go:400: Achievement(nothing achieved)
+DBG> 1970-01-01T00:00:06.589291Z G13 troublecode.go:405: before: ctor.achieved nothing achieved, ctor.troublecode 00 no trouble
+DBG> 1970-01-01T00:00:06.589433Z G13 troublecode.go:449: after: ctor.achieved nothing achieved, ctor.troublecode 00 no trouble
+DBG> 1970-01-01T00:00:06.589815Z G14 main.go:685: runtime: Alloc 621072 NumGC 0 NumGoroutine 26
+DBG> 1970-01-01T00:00:06.593156Z G32 dhcpc.go:668: discover count 0, delay 2.259135495s
+DBG> 1970-01-01T00:00:06.882819Z G21 connector.go:347: started first connector ( wss://ep-terminator.mistsys.net/ws )
+DBG> 1970-01-01T00:00:06.882894Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:06.903411Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:06.903555Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:06.905894Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:06.906021Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:06.908576Z G42 proxy.go:453: Failed to converse about "wlc-site-rest": Not presently connected to cloud
+DBG> 1970-01-01T00:00:06.945532Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:58792->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:06.945728Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:58792->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:06.94617Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:58792->[::1]:53: read: connection refused; waiting 1s before trying again
+DBG> 1970-01-01T00:00:06.946459Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:06.946543Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:06.946618Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:06.947179Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:06.947313Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:06.947628Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:58792->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:06.947709Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:06.957951Z G20 power_budget.go:96: event "/tmp/ep-control/power_budget": CREATE
+DBG> 1970-01-01T00:00:06.958527Z G20 power_budget.go:152: power budget changing from 0 to 6000
+DBG> 1970-01-01T00:00:07.947738Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:07.94782Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:07.947911Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:07.947956Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:07.950426Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57257->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:07.950545Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57257->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:07.950672Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57257->[::1]:53: read: connection refused; waiting 1.056284417s before trying again
+DBG> 1970-01-01T00:00:07.95093Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:07.951042Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:07.95112Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:07.951511Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:07.951611Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:07.951875Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57257->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:07.951951Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:08.108667Z G21 connector.go:355: start next connector
+DBG> 1970-01-01T00:00:08.108734Z G21 connector.go:363: all connectors are started
+DBG> 1970-01-01T00:00:08.108779Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:08.85256Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:08.852682Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:08.857074Z G32 dhcpc.go:668: discover count 1, delay 2.766343592s
+DBG> 1970-01-01T00:00:09.008224Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:09.008304Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:09.008398Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:09.008445Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:09.009878Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56363->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:09.010086Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56363->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:09.010207Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56363->[::1]:53: read: connection refused; waiting 1s before trying again
+DBG> 1970-01-01T00:00:09.010481Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:09.010567Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:09.010639Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:09.011063Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:09.011165Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:09.011351Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56363->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:09.011429Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:10.011482Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:10.011597Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:10.011715Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:10.011788Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:10.014203Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:43009->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:10.01435Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:43009->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:10.014452Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:43009->[::1]:53: read: connection refused; waiting 1s before trying again
+DBG> 1970-01-01T00:00:10.015101Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:10.015198Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:10.015271Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:10.015671Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:10.015771Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:10.016017Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:43009->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:10.016108Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:11.016088Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:11.016159Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:11.01628Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:11.016325Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:11.018471Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:39963->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:11.018555Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:39963->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:11.018621Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:39963->[::1]:53: read: connection refused; waiting 1.585795877s before trying again
+DBG> 1970-01-01T00:00:11.018824Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:11.018872Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:11.018915Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:11.019387Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:11.019488Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:11.019637Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:39963->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:11.019711Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:11.623696Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:11.623796Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:11.628074Z G32 dhcpc.go:668: discover count 2, delay 5.958856206s
+DBG> 1970-01-01T00:00:12.605609Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:12.605693Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:12.605784Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:12.605828Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:12.609697Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47056->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:12.609824Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47056->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:12.609926Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47056->[::1]:53: read: connection refused; waiting 2.328291289s before trying again
+DBG> 1970-01-01T00:00:12.610206Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:12.610293Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:12.610366Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:12.61077Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:12.610873Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:12.611103Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47056->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:12.611153Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:14.939576Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:14.939662Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:14.939782Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:14.93983Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:14.941268Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54532->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:14.941368Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54532->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:14.94144Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54532->[::1]:53: read: connection refused; waiting 2.979936369s before trying again
+DBG> 1970-01-01T00:00:14.941658Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:14.94171Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:14.941762Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:14.942167Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:14.94223Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:14.942378Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54532->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:14.942424Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:17.587238Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:17.587328Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:17.592082Z G32 dhcpc.go:668: discover count 3, delay 5.033076708s
+DBG> 1970-01-01T00:00:17.922478Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:17.92255Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:17.922648Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:17.922696Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:17.924338Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:45030->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:17.924444Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:45030->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:17.924518Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:45030->[::1]:53: read: connection refused; waiting 3.79937701s before trying again
+DBG> 1970-01-01T00:00:17.924751Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:17.924803Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:17.924849Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:17.925253Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:17.925316Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:17.925532Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:45030->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:17.925576Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:21.724977Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:21.725073Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:21.725176Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:21.725224Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:21.726685Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40516->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:21.726783Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40516->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:21.726859Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40516->[::1]:53: read: connection refused; waiting 4.895267727s before trying again
+DBG> 1970-01-01T00:00:21.727119Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:21.727173Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:21.727219Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:21.727571Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:21.727633Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:21.72779Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40516->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:21.727834Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:22.625419Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:22.625489Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:22.630075Z G32 dhcpc.go:668: discover count 4, delay 12.67857112s
+DBG> 1970-01-01T00:00:26.623178Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:26.623275Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:26.623376Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:26.623423Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:26.625242Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:33489->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:26.625337Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:33489->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:26.62541Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:33489->[::1]:53: read: connection refused; waiting 6.675565201s before trying again
+DBG> 1970-01-01T00:00:26.62565Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:26.625706Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:26.625752Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:26.626127Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:26.626191Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:26.626407Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:33489->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:26.626452Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:33.302097Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:33.302181Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:33.302278Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:33.302325Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:33.304564Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47131->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:33.304661Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47131->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:33.304736Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47131->[::1]:53: read: connection refused; waiting 8.704648778s before trying again
+DBG> 1970-01-01T00:00:33.304967Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:33.305035Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:33.305113Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:33.305483Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:33.305543Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:33.305669Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:47131->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:33.305713Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:34.301363Z G20 power_budget.go:96: event "/tmp/ep-control/power_budget": CREATE
+DBG> 1970-01-01T00:00:34.301513Z G20 power_budget.go:152: power budget changing from 6000 to 0
+DBG> 1970-01-01T00:00:35.308935Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:35.309021Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:35.314076Z G32 dhcpc.go:668: discover count 5, delay 12.133378491s
+DBG> 1970-01-01T00:00:38.108962Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:42.010513Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:42.010595Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:42.01069Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:42.010738Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:42.012333Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54799->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:42.012426Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54799->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:42.012509Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54799->[::1]:53: read: connection refused; waiting 11.767200791s before trying again
+DBG> 1970-01-01T00:00:42.012723Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:42.012773Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:42.012818Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:42.013228Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:42.013293Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:42.013415Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54799->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:42.013792Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:00:42.013891Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:00:42.014113Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:00:42.014254Z G21 troublecode.go:315: new LED error code 03 no IP address
+DBG> 1970-01-01T00:00:42.014325Z G21 led_aph.go:122: LED set(error, 3)
+---report to cloud---: ReportTrouble(03 no IP address), no IP address on vlan1
+
+wrapper 1970-01-01T00:00:42Z.014617: /usr/sbin/ep-control emitted watchstring "---report to cloud---:", "ReportTrouble(03 no IP address), no IP address on vlan1"
+DBG> 1970-01-01T00:00:42.016479Z G21 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:42.017684Z G21 preauth_report.go:21: send_preauth_report(firmware "apfw-0.3.15439-cersei-7b57"; connection failure with "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54799->[::1]:53: read: connection refused; troubleshooting found: error 03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:00:42.018225Z G21 preauth_report.go:67: sending 303 byte report to https://ep-terminator.mistsys.net/preauth_report
+DBG> 1970-01-01T00:00:42.030237Z G21 preauth_report.go:71: failed to send preath report: Post https://ep-terminator.mistsys.net/preauth_report: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:43384->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:42.030369Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:47.447724Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:47.447807Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:47.45208Z G32 dhcpc.go:668: discover count 6, delay 11.999613769s
+DBG> 1970-01-01T00:00:53.780831Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:00:53.780916Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:00:53.781027Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:00:53.781076Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:00:53.783163Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:36348->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:53.783251Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:36348->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:00:53.78332Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:36348->[::1]:53: read: connection refused; waiting 15.724710233s before trying again
+DBG> 1970-01-01T00:00:53.783526Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:00:53.783574Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:53.783617Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:00:53.78398Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:00:53.784059Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:00:53.784179Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:36348->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:00:53.784235Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:00:53.784284Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:00:53.784437Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:00:53.784516Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:00:53.784557Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:00:53.784862Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:00:59.451991Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:00:59.452083Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:00:59.457076Z G32 dhcpc.go:668: discover count 7, delay 12.130800076s
+DBG> 1970-01-01T00:01:06.592657Z G14 main.go:685: runtime: Alloc 1691080 NumGC 0 NumGoroutine 34
+DBG> 1970-01-01T00:01:08.109554Z G21 connector.go:405: Existing DHCP lease on "vlan1" is { SELECTING <no lease> }
+DBG> 1970-01-01T00:01:08.109628Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:01:09.509091Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:01:09.50919Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:01:09.509308Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:01:09.509361Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:01:09.510965Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:55913->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:09.511094Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:55913->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:09.511182Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:55913->[::1]:53: read: connection refused; waiting 21.074020828s before trying again
+DBG> 1970-01-01T00:01:09.51142Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:01:09.511478Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:09.511529Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:09.511897Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:01:09.511965Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:01:09.512179Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:55913->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:01:09.512242Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:01:09.512292Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:01:09.512471Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:01:09.512557Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:01:09.5126Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:01:09.512791Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:01:11.588166Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:01:11.588241Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:01:11.593075Z G32 dhcpc.go:668: discover count 8, delay 11.100653984s
+DBG> 1970-01-01T00:01:22.694018Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:01:22.694097Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:01:22.699114Z G32 dhcpc.go:668: discover count 9, delay 12.578832823s
+DBG> 1970-01-01T00:01:30.586364Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:01:30.586452Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:01:30.586567Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:01:30.586615Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:01:30.588196Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:48413->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:30.588292Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:48413->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:30.588369Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:48413->[::1]:53: read: connection refused; waiting 28.100501998s before trying again
+DBG> 1970-01-01T00:01:30.588597Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:01:30.588648Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:30.588695Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:30.589077Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:01:30.58914Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:01:30.589282Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:48413->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:01:30.589343Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:01:30.589394Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:01:30.589562Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:01:30.589657Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:01:30.589702Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:01:30.589888Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:01:35.278249Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:01:35.278331Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:01:35.283087Z G32 dhcpc.go:668: discover count 10, delay 11.651479224s
+DBG> 1970-01-01T00:01:46.934825Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:01:46.934912Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:01:46.94009Z G32 dhcpc.go:668: discover count 11, delay 12.836532s
+DBG> 1970-01-01T00:01:58.689937Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:01:58.690045Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:01:58.690145Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:01:58.690194Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:01:58.692475Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57245->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:58.692583Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57245->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:01:58.692657Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57245->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:01:58.692891Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:01:58.692942Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:58.692988Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:01:58.693396Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:01:58.693459Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:01:58.693602Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:57245->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:01:58.693671Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:01:58.693723Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:01:58.693889Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:01:58.693987Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:01:58.694049Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:01:58.694268Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:01:59.77688Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:01:59.776953Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:01:59.78208Z G32 dhcpc.go:668: discover count 12, delay 12.156935729s
+DBG> 1970-01-01T00:02:06.593111Z G14 main.go:685: runtime: Alloc 1990792 NumGC 0 NumGoroutine 34
+DBG> 1970-01-01T00:02:11.939284Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:02:11.939362Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:02:11.94408Z G32 dhcpc.go:668: discover count 13, delay 11.707179539s
+DBG> 1970-01-01T00:02:23.651567Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:02:23.651645Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:02:23.65608Z G32 dhcpc.go:668: discover count 14, delay 11.883252482s
+DBG> 1970-01-01T00:02:28.693786Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:02:28.693869Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:02:28.693997Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:02:28.694062Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:02:28.695885Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54954->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:02:28.695984Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54954->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:02:28.696081Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54954->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:02:28.696297Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:02:28.696346Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:02:28.69639Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:02:28.696761Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:02:28.696817Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:02:28.696933Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54954->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:02:28.696996Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:02:28.697072Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:02:28.697386Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:02:28.697521Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:02:28.697596Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:02:28.697814Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:02:35.53959Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:02:35.539665Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:02:35.544076Z G32 dhcpc.go:668: discover count 15, delay 12.346519136s
+DBG> 1970-01-01T00:02:47.890945Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:02:47.891039Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:02:47.896077Z G32 dhcpc.go:668: discover count 16, delay 12.713354846s
+DBG> 1970-01-01T00:02:58.697141Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:02:58.697228Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:02:58.697333Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:02:58.697382Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:02:58.699039Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53205->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:02:58.699134Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53205->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:02:58.699208Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53205->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:02:58.699427Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:02:58.699478Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:02:58.699524Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:02:58.699911Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:02:58.699973Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:02:58.700204Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53205->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:02:58.700268Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:02:58.70032Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:02:58.700478Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:02:58.700574Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:02:58.700619Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:02:58.700808Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:03:00.609718Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:00.609801Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:00.614081Z G32 dhcpc.go:668: discover count 17, delay 11.241292205s
+DBG> 1970-01-01T00:03:06.593553Z G14 main.go:685: runtime: Alloc 2231152 NumGC 0 NumGoroutine 34
+DBG> 1970-01-01T00:03:11.855689Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:11.855765Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:11.860078Z G32 dhcpc.go:668: discover count 18, delay 11.72350873s
+DBG> 1970-01-01T00:03:23.58387Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:23.583949Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:23.589076Z G32 dhcpc.go:668: discover count 19, delay 11.232191969s
+DBG> 1970-01-01T00:03:28.700353Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:03:28.700442Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:03:28.700593Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:03:28.700663Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:03:28.702349Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53383->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:03:28.702464Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53383->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:03:28.702539Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53383->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:03:28.702784Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:03:28.702836Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:03:28.702882Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:03:28.703283Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:03:28.703349Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:03:28.703494Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:53383->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:03:28.703565Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:03:28.703616Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:03:28.703762Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:03:28.703858Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:03:28.703902Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:03:28.704125Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:03:34.821562Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:34.821645Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:34.826098Z G32 dhcpc.go:668: discover count 20, delay 11.31366402s
+DBG> 1970-01-01T00:03:46.140101Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:46.140183Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:46.145081Z G32 dhcpc.go:668: discover count 21, delay 12.155895349s
+DBG> 1970-01-01T00:03:58.301264Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:03:58.301342Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:03:58.306079Z G32 dhcpc.go:668: discover count 22, delay 11.612962858s
+DBG> 1970-01-01T00:03:58.703658Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:03:58.703729Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:03:58.703838Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:03:58.703885Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:03:58.705772Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:42268->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:03:58.705885Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:42268->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:03:58.70596Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:42268->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:03:58.706218Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:03:58.706274Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:03:58.70632Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:03:58.706702Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:03:58.706762Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:03:58.70695Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:42268->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:03:58.707043Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:03:58.707118Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:03:58.707276Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:03:58.707377Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:03:58.707421Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:03:58.707617Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:04:06.594047Z G14 main.go:685: runtime: Alloc 2469848 NumGC 0 NumGoroutine 34
+DBG> 1970-01-01T00:04:09.919339Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:04:09.919423Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:04:09.924078Z G32 dhcpc.go:668: discover count 23, delay 12.465752188s
+DBG> 1970-01-01T00:04:22.390135Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:04:22.390209Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:04:22.396074Z G32 dhcpc.go:668: discover count 24, delay 11.33522853s
+DBG> 1970-01-01T00:04:28.707184Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:04:28.707266Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:04:28.707365Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:04:28.707409Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:04:28.709085Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40041->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:04:28.70919Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40041->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:04:28.709266Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40041->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:04:28.709483Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:04:28.709535Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:04:28.709581Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:04:28.709963Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:04:28.710048Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:04:28.71018Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:40041->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:04:28.710247Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:04:28.710298Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:04:28.710524Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:04:28.710632Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:04:28.710678Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:04:28.710879Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:04:33.731593Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:04:33.731665Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:04:33.736078Z G32 dhcpc.go:668: discover count 25, delay 11.442454445s
+DBG> 1970-01-01T00:04:45.178821Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:04:45.178904Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:04:45.184077Z G32 dhcpc.go:668: discover count 26, delay 12.447156497s
+DBG> 1970-01-01T00:04:57.631516Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:04:57.631598Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:04:57.636081Z G32 dhcpc.go:668: discover count 27, delay 12.135125022s
+DBG> 1970-01-01T00:04:58.710374Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:04:58.710445Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:04:58.710569Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:04:58.710614Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:04:58.7132Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56234->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:04:58.713287Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56234->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:04:58.713366Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56234->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:04:58.713585Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:04:58.713633Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:04:58.713675Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:04:58.714048Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:04:58.714107Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:04:58.714251Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:56234->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:04:58.714309Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:04:58.714358Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:04:58.714494Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:04:58.714572Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:04:58.714614Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:04:58.714882Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:05:06.558532Z G33 apply_arm.go:918: Error: Built-in dhcpc failed to bind vlan1. Lease = { SELECTING <no lease> }
+DBG> 1970-01-01T00:05:06.558681Z G33 apply_arm.go:921: Capturing dhcp frames into "/tmp/dhcp.pcap.1" for debug
+DBG> 1970-01-01T00:05:06.594758Z G14 main.go:685: runtime: Alloc 2705928 NumGC 0 NumGoroutine 34
+DBG> 1970-01-01T00:05:06.864907Z G217 proxy.go:453: Failed to converse about "wlc-site-rest": Not presently connected to cloud
+DBG> 1970-01-01T00:05:09.771526Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:05:09.771609Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:05:09.776087Z G32 dhcpc.go:668: discover count 28, delay 12.627504738s
+DBG> 1970-01-01T00:05:22.403876Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:05:22.403953Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:05:22.409079Z G32 dhcpc.go:668: discover count 29, delay 11.699212341s
+DBG> 1970-01-01T00:05:28.714455Z G43 connector.go:148: proxy url not found
+DBG> 1970-01-01T00:05:28.714538Z G43 connector.go:1038: dialing "wss://ep-terminator.mistsys.net/ws"
+DBG> 1970-01-01T00:05:28.714677Z G43 connector.go:966: dialing "ep-terminator.mistsys.net:443"
+DBG> 1970-01-01T00:05:28.714726Z G43 connector.go:983: calling dialer.Dial(tcp, ep-terminator.mistsys.net:443)
+DBG> 1970-01-01T00:05:28.716447Z G43 connector.go:987: Dial(wss://ep-terminator.mistsys.net/ws) failed: dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54215->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:05:28.716553Z G43 connector.go:1049: Dial(wss://ep-terminator.mistsys.net/ws) => ws
+  resp.Header map[]
+  err dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54215->[::1]:53: read: connection refused
+DBG> 1970-01-01T00:05:28.716629Z G43 connector.go:1057: ERROR: failed to connect to cloud "wss://ep-terminator.mistsys.net/ws": dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54215->[::1]:53: read: connection refused; waiting 30s before trying again
+DBG> 1970-01-01T00:05:28.716855Z G43 troubleshoot.go:52: eth0, sts 0x79ed, ctl 0x1140, link, 1000 Mbps, full-duplex
+DBG> 1970-01-01T00:05:28.716912Z G43 troubleshoot.go:52: eth1, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:05:28.716958Z G43 troubleshoot.go:52: module, sts 0x79c9, ctl 0x1140, no link
+DBG> 1970-01-01T00:05:28.71739Z G43 troubleshoot.go:93: vlan1 IPs: []
+DBG> 1970-01-01T00:05:28.717453Z G43 troubleshoot.go:97: no IP address on vlan1
+DBG> 1970-01-01T00:05:28.717623Z G21 connector.go:370: failure: {0x11e480a0 dial tcp: lookup ep-terminator.mistsys.net on [::1]:53: read udp [::1]:54215->[::1]:53: read: connection refused no IP address on vlan1 03 no IP address}
+DBG> 1970-01-01T00:05:28.717698Z G21 troublecode.go:292: ReportTrouble(03 no IP address, no IP address on vlan1)
+DBG> 1970-01-01T00:05:28.71775Z G21 troublecode.go:301: Trouble connecting to cloud: code 03 no IP address, no IP address on vlan1
+DBG> 1970-01-01T00:05:28.717875Z G21 troublecode.go:306: called from connector/connector.go:1707
+DBG> 1970-01-01T00:05:28.717958Z G21 troublecode.go:321: repeating LED error code 03 no IP address
+DBG> 1970-01-01T00:05:28.718044Z G21 led_aph.go:122: LED set(error, 3)
+DBG> 1970-01-01T00:05:28.718261Z G21 connector.go:352: looping
+DBG> 1970-01-01T00:05:34.108563Z G32 dhcpc.go:1909: DHCP client{"vlan1",SELECTING,0.0.0.0}.sendDiscover() in state SELECTING
+DBG> 1970-01-01T00:05:34.10864Z G32 dhcpc.go:2051: makePacket(DISCOVER)
+DBG> 1970-01-01T00:05:34.114073Z G32 dhcpc.go:668: discover count 30, delay 11.779807336s
+DBG> 1970-01-01T00:05:36.565159Z G33 apply_arm.go:938: Error: Built-in dhcpc still failed to bind vlan1. Lease = { SELECTING <no lease> }
+DBG> 1970-01-01T00:05:36.565286Z G33 apply_arm.go:940: Switching to old udhcpc client in hopes that might fix this
+---report to cloud---:@nic new dhcpc failed to get an address in 5m30s on vlan1 at uptime 5m37s. See /tmp/dhcp.pcap.1
+
+wrapper 1970-01-01T00:05:36Z.565412: /usr/sbin/ep-control emitted watchstring "---report to cloud---:", "@nic new dhcpc failed to get an address in 5m30s on vlan1 at uptime 5m37s. See /tmp/dhcp.pcap.1"

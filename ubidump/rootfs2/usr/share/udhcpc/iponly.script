@@ -1,0 +1,35 @@
+#!/bin/sh -x
+echo "$0 starting"
+exec >>/var/log/dhcp_client.log 2>&1
+
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+# and later by Nicolas Dade <nic.dade@mistsys.com>
+
+echo "-----------------------------------------------"
+date
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
+
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+
+case "$1" in
+	deconfig)
+		/sbin/ip link set dev $interface up
+		/sbin/ip addr flush dev $interface
+		;;
+
+	leasefail|nak)
+		;;
+
+	renew|bound)
+		/sbin/ip addr replace dev $interface $ip/$subnet $BROADCAST
+		;;
+esac
+
+HOOK_DIR="$0.d"
+for hook in "${HOOK_DIR}/"*; do
+    [ -f "${hook}" -a -x "${hook}" ] || continue
+    "${hook}" "${@}"
+done
+
+exit 0

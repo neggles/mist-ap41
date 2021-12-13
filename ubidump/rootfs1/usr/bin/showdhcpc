@@ -1,0 +1,4 @@
+#!/bin/sh
+# show state of dhcp client(s)
+
+wget -q -O - http://localhost:2000/debug/dhcpc

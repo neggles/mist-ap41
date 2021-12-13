@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ "$#" != "1" ]; then
+	echo "Usage $0 <Radio_itf>";
+	exit 0
+fi
+
+en=`wl -i "$1" qos_vap_mode`
+
+if [ "$en" == "3" ]; then
+	echo "DSCP to ACCESS Class Enabled."
+else
+	echo "DSCP to ACCESS Class Disabled. ($en)"
+fi
+
+n=0;
+while [ $n != 64  ]; do
+	/usr/sbin/wl -i "$1" qos_dscp_to_ac $n;
+	if [ "$?" != "0" ]; then
+		exit $?
+	fi
+	n=$(( n + 1 ));
+done

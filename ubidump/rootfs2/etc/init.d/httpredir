@@ -1,0 +1,24 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo -n "Starting http_redir: "
+    /usr/bin/wrapper -d -f /var/log/http_redir.log -r $numRestart -- /usr/sbin/http_redir
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping http_redir: "
+    /usr/bin/killall http_redir
+    echo OK
+    ;;
+  restart)
+    $0 stop
+    . maxNumRestarts
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?

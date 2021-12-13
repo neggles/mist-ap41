@@ -1,0 +1,5 @@
+auto lo
+iface lo inet loopback
+
+# note: vlan1 is not automatically started. we have to check whether or not it uses a static IP first
+iface vlan1 inet dhcp

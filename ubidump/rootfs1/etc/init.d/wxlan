@@ -1,0 +1,25 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo -n "Starting wxlan: "
+    /sbin/modprobe wxlan
+    /bin/mknod /dev/wxcon c 168 0
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping wxlan: "
+    /sbin/rmmod wxlan
+    rm /dev/wxcon
+    echo OK
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?

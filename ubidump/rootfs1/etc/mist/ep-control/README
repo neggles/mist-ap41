@@ -1,0 +1,84 @@
+
+---- Overriding the config the cloud sends the AP -----------------
+
+4 files, which normally do not exist, can be placed in /rw/etc/mist/ep-control/
+and get merged into the config the cloud sends to the AP. This is useful for
+testing new features the cloud doesn't yet configure, or test configurations
+the cloud won't generate.
+
+The files are
+
+   /rw/etc/mist/ep-control/local_defaults.config
+   /rw/etc/mist/ep-control/local_overrides.config
+   /rw/etc/mist/ep-control/local_radio_overrides.config
+   /rw/etc/mist/ep-control/local_wlan_overrides.config
+
+The local_defaults are applied before the cloud's configuration. They override
+the hardcoded defaults in the AP's configuration.
+
+The local_overrides file is applied on top of the cloud's configuration. It
+is useful for changing globals. However when changing lists (like the WLANs
+for example) you end up replacing the entire list, rather than adding or altering
+one member of the list, which is difficult to use.
+
+Thus the local_radio_overrides file, which is applied on top of the Radios sent
+from the cloud, and the local_wlan_overrides file, which is applied on top of the
+WLANs sent from the cloud.
+
+These two first files are fragments of configuration files. The local_wlan_overrides
+is a map from SSID or UUID to just the WLAN's configuration.
+
+Errors in parsing (JSON syntax errors; unknown WLANs) will show up in ep-control.log.
+
+Files in /rw/etc/mist/ep-control/ survive reboots and upgrades. Only holding
+down the 'reset' button while rebooting, or doing a `progfw` in u-boot will
+erase them (and the rest of /rw).
+
+---- Examples ------------------------------------------------------
+
+1) To turn off pcap on R0,R1, and R2:
+
+::local_overrides.config::
+{
+ "Monitor":{
+  "Enabled": false,
+  "Radiotap": false,
+  "SteerEnabled": false,
+  "PcapWLAN": {
+   "ClientFirstBkgrdEnabled": false
+  }
+ }
+}
+::::
+
+2) Turn off BSS-Load beacon element[1] on a WLAN with SSID "xyz":
+
+::local_wlan_overrides.config::
+{ 
+ "xyz":{
+  "WNM": {
+   "BSSLoad":false
+  }
+ }
+}
+::::
+
+3) Force the 2.4GHz radio to channel 1, 40Mhz wide, and the 5GHz radio to channel 64, 80MHz wide:
+
+::local_radio_overrides.config::
+{
+ "2.4":{
+  "Channel":1,
+  "Width":40
+ },
+ "5":{
+  "Channel":64,
+  "Width":80
+ }
+}
+
+
+[1] note that the way BSS-Load works in wl.ko it has to be disabled on all WLANs
+on a radio for it to be absent from the beacons of any WLAN. That's a broadcom
+quirk we haven't bothered to fix since it doesn't really break anything we know
+about.

@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Starts dropbear sshd.
+#
+
+DROPBEAR_HOSTKEY="/rw/etc/dropbear/dropbear_ecdsa_host_key"
+
+start() {
+	# if the host key exists, use it. Otherwise make up some keys to use
+	if [ -f $DROPBEAR_HOSTKEY ]; then
+		DROPBEAR_ARGS="$DROPBEAR_ARGS -r $DROPBEAR_HOSTKEY"
+	else
+		DROPBEAR_ARGS="$DROPBEAR_ARGS -R"
+	fi
+
+	# setup the root authorized_keys in /tmp
+	mkdir -p /tmp/root/.ssh
+	[ -r /root/.ssh/authorized_keys ] || cat /root/.ssh/default_authorized_keys /rw/etc/mist/ep-control/authorized_keys >/root/.ssh/authorized_keys 2>/dev/null # redirect stderr since 2nd file doesn't normally exist
+	chmod 600 /root/.ssh/authorized_keys
+
+	echo -n "Starting dropbear sshd: "
+	umask 077
+	start-stop-daemon -S -q -p /var/run/dropbear.pid --exec /usr/sbin/dropbear -- $DROPBEAR_ARGS
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+stop() {
+	echo -n "Stopping dropbear sshd: "
+	start-stop-daemon -K -q -p /var/run/dropbear.pid
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  rekey)
+	# create a fresh ssh host key
+	# ensure the directory(ies) exist (in case /rw is empty)
+	mkdir -p $(dirname $DROPBEAR_HOSTKEY)
+	# dropbearkey cautiously refuses to overwrite existing files, so we must delete the file first if it exists
+	[ ! -f $DROPBEAR_HOSTKEY ] || rm $DROPBEAR_HOSTKEY
+	/usr/bin/dropbearkey -t ecdsa -f $DROPBEAR_HOSTKEY -s 521
+
+	# if dropbear is running then restart it so it picks up the new key
+	[ -z $(pidof dropbear) ] || restart
+	;;
+  start)
+	shift
+	# any additional args are passed to dropbear
+	DROPBEAR_ARGS="$DROPBEAR_ARGS $@"
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  restart|reload)
+  	restart
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

@@ -1,0 +1,7 @@
+if [ -e /proc/device-tree/bootstate/state ]; then
+	cat /proc/device-tree/bootstate/state 
+	echo
+else
+	echo "Unknown"
+fi
+

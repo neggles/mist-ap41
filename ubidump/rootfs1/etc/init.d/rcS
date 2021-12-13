@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# The /rw mountpoint contains the read/write configuration files
+# The /rw subdir of rootfs contains the defaults for these files
+
+# first make sure the /rw volume is mountable. We've had one BT11
+# come back with an unmountable /rw. So as an energency measure, if
+# it isn't mounted, reinitialize it.
+if ! ( /bin/mount | /bin/fgrep "ubi:rw on /rw type ubifs (rw," >/dev/null ); then
+	# before we make a worse mess, sanity check that a ubi partition named "rw" exists where we expect it to be
+	if ubinfo /dev/ubi0_2 | grep '^Name:[[:space:]]*rw$'; then
+		# save what we do see, to log it later
+		info=$(echo "mount"; mount; echo "ubinfo --all"; ubinfo --all)
+		LEBs=$(ubinfo /dev/ubi0_2 |grep '^Size: .*LEBs'|awk '{print $2}')
+		[ -z "$LEBs" ] && size="--maxavsize" || size="--lebs $LEBs"
+		echo "REFORMATTING DAMAGED /rw UBI VOLUME. SIZE $size"
+		umount /rw || true # umount needed if the mount succeeded but ended up being a ro mount due to filesystem errors
+		ubirmvol /dev/ubi0 -n 2
+		ubimkvol /dev/ubi0 -n 2 -N rw -t dynamic $size
+		mount /rw
+		info2=$(echo "ubinfo --all after mkvol"; ubinfo --all; echo "mount after mkvol"; mount; echo "dmesg"; dmesg)
+		id=$(hexdump -v -e '/1 "%02X-"' /proc/device-tree/chosen/mac-address |sed 's/-$//')
+		model=$(cat /proc/device-tree/chosen/mfg_hardware_model)
+		# leave a record that will get sent to the cloud if we're successful
+		mkdir -p /rw/var/log/errors/
+		cat - >/rw/var/log/errors/rw_volume_lost <<EOF
+{
+ "ID": "$id",
+ "HardwareModel": "$model",
+ "Bodytype": "text",
+ "Reason": "@nic /rw reformatted"
+}
+
+$info
+$info2
+EOF
+	else
+		echo "FAILURE. NO /rw UBI VOLUME FOUND. PLEASE RMA THIS UNIT."
+	fi
+fi
+
+
+# get a view into / without the /rw and /tmp mounts getting in the way
+/bin/mount --bind / /mnt
+# rsync the rootfs /rw files onto the rw partition; don't overwrite existing files
+/usr/bin/rsync -a --ignore-existing /mnt/rw/. /rw
+# and initialize tmp with whatever files we need
+/bin/cp -a /mnt/tmp/. /tmp
+/bin/umount /mnt
+
+. maxNumRestarts
+
+# Start all init scripts in /etc/init.d
+# executing them in numerical order.
+
+for i in /etc/init.d/S??* ;do
+
+     # Ignore dangling symlinks (if any).
+     [ ! -f "$i" ] && continue
+
+     case "$i" in
+        *.sh)
+            # Source shell script for speed.
+            (
+                trap - INT QUIT TSTP
+                set start
+                . $i
+            )
+            ;;
+        *)
+            # No sh extension, so fork subprocess.
+            $i start
+            ;;
+    esac
+done

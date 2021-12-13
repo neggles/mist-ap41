@@ -1,0 +1,4 @@
+#!/bin/sh
+# show  Sta fbt key
+
+wget -q -O - http://localhost:2001/debug/fbt/sta11rkey

@@ -1,0 +1,4 @@
+#!/bin/sh
+# show state of connection to the cloud
+
+wget -q -O - http://localhost:2000/debug/connector

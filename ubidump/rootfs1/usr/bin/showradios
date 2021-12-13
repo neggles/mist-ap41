@@ -1,0 +1,19 @@
+#!/bin/sh
+# dump out the list of wlans
+
+RADIOS=`/sbin/ip link | grep 'r[0-9]' | awk '{print $2}' | sed 's/:$//'`
+
+if [ "$1" = "-h" ]; then
+  echo "showradios <no options>"
+  exit 1
+fi
+
+for radio in $RADIOS; do
+  echo "$radio:"
+  /usr/sbin/wl -i $radio curpower | awk \
+    -e '/^BSS Channel:/ { print " channel", $3 }' \
+    -e  '/^BSS Local Max:/ { print " power", $4, $5 }' \
+    -e '/^Channel Width:/ { print " bandwidth", $3 }' \
+    -e '/^Current rate:/ { printf(" rates"); for (i=3; i<NF; i++) { printf(" %s", $i) }; print "" }'
+done
+

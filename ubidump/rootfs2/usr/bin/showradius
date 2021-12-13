@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# show radius server information.
+wget -q -O - http://localhost:2001/debug/radius/radius_info
+

@@ -1,0 +1,4 @@
+# version information about this firmware image
+FIRMWARE_MODEL=aph
+FIRMWARE_VERSION=apfw-0.3.15271-cersei-87bd
+FIRMWARE_BUILDTIME=2019-05-20_18:41:19_UTC

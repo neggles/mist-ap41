@@ -1,0 +1,32 @@
+#!/usr/bin/lua
+--[[
+nvram: read /rw/etc/mist/ep-control/nvram.json and set those params in nvram
+]]--
+
+local json = require "cjson"
+local util = require "cjson.util"
+
+nvram_file = '/rw/etc/mist/ep-control/nvram.json'
+
+-- Read nvam.json and extract key:val and set nvram
+function main()
+  -- if nvram.json not present return quietly
+  local f = io.open(nvram_file, "r")
+  if not f then
+    return
+  end
+  f:close()
+
+  local json_text = util.file_load(nvram_file)
+  local t = json.decode(json_text)
+  for key,val in pairs(t) do
+    io.write("Setting nvram with ", key, " = ", val, "\n")
+    cmd = string.format("/sbin/nvram set %s=%s", key, math.floor(val))
+    local handle = io.popen(cmd)
+    local result = handle:read("*a")
+    handle:close()
+  end
+
+end
+
+main()

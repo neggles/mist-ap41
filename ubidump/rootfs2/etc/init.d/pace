@@ -1,0 +1,34 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    /sbin/modprobe pace
+    major=$(awk </proc/devices '/\<pace\>/ {print $1}')
+    [ -c /dev/pace ] || /bin/mknod /dev/pace c $major 0
+    [ -c /dev/pace_mgmt ] || /bin/mknod /dev/pace_mgmt c $major 32
+    [ -c /dev/pace_beacons ] || /bin/mknod /dev/pace_beacons c $major 33
+    [ -c /dev/pace_probes ] || /bin/mknod /dev/pace_probes c $major 34
+    echo -n "Starting pace: "
+    #export GODEBUG="cgocheck=2"
+    /usr/bin/wrapper -F 3 -d -s $((1<<20)) -n 20 -f /var/log/pace.log -w '---report to cloud---:' -r $numRestart -- /usr/sbin/pace -pprof-port 2001 -fuzz 0.000001 ;
+    /sbin/modprobe bcm58522 2>/dev/null # CPU temperature, if it exist
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping pace: "
+#    start-stop-daemon -K -x /usr/sbin/pace
+    killall wrap-pace
+    echo OK
+    ;;
+  restart)
+    $0 stop
+    . maxNumRestarts
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?
+

@@ -1,0 +1,276 @@
+#!/bin/sh
+
+# define FIRMWARE_MODEL and other firmware-related variables
+. /etc/mist/version
+
+hwrev=$(cat /proc/device-tree/chosen/mfg_hardware_revision)
+hwrev_letter=${hwrev:0:1}
+
+hwmodel=$(cat /proc/device-tree/chosen/mfg_hardware_model)
+
+# initial setup
+case $hwmodel in
+    *AP41*)
+        case $hwrev in
+            0|1)
+                echo "This APH lacks complete BLE hardware"
+                exit 1
+                ;;
+        esac
+        ;;
+
+    *AP21* | *BT11* | AIR-VBLE1-K9 | AIR-RM-VBLE2-K9)
+        # create a dummy i2c-1 node if it doesn't exist
+        knode="/dev/i2c-1"
+        [ -e $knode ] || ln /dev/i2c-0 $knode
+        ;;
+esac
+
+blemac=`mac.lua $FIRMWARE_MODEL`
+
+if [ -z "${blemac}" -o "${blemac}" = "" ]
+then
+    # something is wrong with getting the mac address
+    blemac="5C:5B:35:0E:02:EE"
+    echo "Warning, can't get Ethernet mac address"
+fi
+
+cmd="blebeacon"
+pid_file="/var/run/$cmd.pid"
+stdout_log="/var/log/$cmd.log"
+stderr_log="/var/log/$cmd.err"
+
+# return true (0) if bleBeacon is probably running with the pid in $pid_file
+is_running() {
+    [ -f "$pid_file" ] && ps h -p "$(cat $pid_file)" | egrep -i $cmd >/dev/null
+}
+
+scan_cmd="activescan"
+scan_pid_file="/var/run/$scan_cmd.pid"
+scan_stdout_log="/var/log/$scan_cmd.log"
+scan_stderr_log="/var/log/$scan_cmd.err"
+
+# return true (0) if activeScan is probably running with the pid in $pid_file
+is_scan_running() {
+    [ -f "$scan_pid_file" ] && ps h -p "$(cat $scan_pid_file)" | egrep -i $scan_cmd >/dev/null
+}
+
+# create the GPIOs which drive the antenna mux
+GP=/sys/class/gpio
+setup_gpio() {
+    echo $hwmodel
+    case $hwmodel in    # set gpio pins for this model - RF switch V2, V1 and BLE Reset
+        *AP41*|*AP61*)
+            set 29 30 11
+            ;;
+        *AP21*|*BT11*|AIR-VBLE1-K9)
+            set 5 6 8
+            ;;
+        AIR-RM-VBLE2-K9)
+            set 3 5 6 8
+            ;;
+    esac
+
+    case $hwmodel in    # set gpio pins for this model - RF switch V3 (vulcano), V2, V1 and BLE Reset
+    # turn on RF selector switches - run only if they don't exist already
+        *AP41*|*AP61*|*AP21*|*BT11*|AIR-VBLE1-K9)
+            if [ ! -e ${GP}/gpio${1} ]; then
+                for i in $1 $2 ; do
+                    echo $i > $GP/export
+                    echo out > $GP/gpio${i}/direction
+                    echo 0 > $GP/gpio${i}/value
+                    if [ $i == ${2} ]; then
+                        # select beam array
+                        echo 1 > $GP/gpio${i}/value
+                    fi
+                done
+            fi
+            # release the bluetooth chip from reset
+            if [ ! -e ${GP}/gpio${3} ]; then
+                echo ${3} > $GP/export
+                echo out > $GP/gpio${3}/direction
+            fi
+            # 1: Need to take chip out of reset
+            echo 1 > $GP/gpio${3}/value
+            ;;
+
+        AIR-RM-VBLE2-K9)
+            if [ ! -e ${GP}/gpio${1} ]; then
+                for i in $1 $2 $3; do
+                    echo $i > $GP/export
+                    echo out > $GP/gpio${i}/direction
+                    echo 0 > $GP/gpio${i}/value
+                    if [ $i == ${3} ]; then
+                        # select beam array
+                        echo 1 > $GP/gpio${i}/value
+                    fi
+                done
+            fi
+            # release the bluetooth chip from reset
+            if [ ! -e ${GP}/gpio${4} ]; then
+                echo ${4} > $GP/export
+                echo out > $GP/gpio${4}/direction
+            fi
+            # 1: Need to take chip out of reset
+            echo 1 > $GP/gpio${4}/value
+            ;;
+    esac
+}
+
+start_apl() {
+    RESET_LINE=8
+    BLE_ARGS="-b 50 -x ${blemac} -z 1"
+    HCICMD="btmgmt"
+
+    # Reset BLE Chip
+    echo 0 > $GP/gpio${RESET_LINE}/value; sleep 1; echo 1 > $GP/gpio${RESET_LINE}/value
+    sleep 5 # Need to give the BLE Chip some time before it is able to come online.
+
+    initHci
+
+    # wait for re-appearance
+    while [ ! -e /sys/class/bluetooth/hci0 ]
+    do
+        sleep 1
+    done
+
+    if ! $HCICMD power on # bring stack up to run patchram
+    then
+        echo "blebeacon: can't bring up BLE after reset."
+    fi
+
+    case $hwmodel in 
+        *AP21*|*BT11*|AIR-VBLE1-K9)
+            hiPowerPatchFile=/usr/sbin/BCM20704_btusb.hcd
+            ;;
+        AIR-RM-VBLE2-K9)
+            hiPowerPatchFile=/usr/sbin/BCM20703A1_USB_WakeOnBle_Dft-4.25dB.hcd
+            ;;
+    esac
+
+    # download patchram
+    if /usr/sbin/blepatchram --hi $hiPowerPatchFile --mid /usr/sbin/BCM20703A1_USB_WakeOnBle_Dft-4.25dB.hcd --lower_4 /usr/sbin/BCM20704_btusb_WakeOnBle_Dft-4dB.hcd --lower_8 /usr/sbin/BCM20704_btusb_WakeOnBle_Dft-8dB.hcd --lower_12 /usr/sbin/BCM20704_btusb_WakeOnBle_D-12dB.hcd --lower_16 /usr/sbin/BCM20704_btusb_WakeOnBle_D-16dB.hcd --lower_20 /usr/sbin/BCM20704_btusb_WakeOnBle_D-20dB.hcd hci0
+    then
+        while [ ! -e /sys/class/bluetooth/hci0 ]
+        do
+            echo waits
+            sleep 1
+        done
+        if ! $HCICMD power on
+        then
+            echo "blebeacon: can't bring up BLE after patching."
+        fi
+        /usr/bin/wrapper -d -s $((1<<20)) -n 10 -f /var/log/bleBeacon.log -w '---report to cloud---:' -r $numRestart -- /usr/sbin/bleBeacon ${BLE_ARGS}
+    else
+        # patchram download failed
+        echo "blebeacon: Failed patchram."
+    fi
+}
+
+initHci() {
+    btmgmt power on
+    btattach -S 115200 -B /dev/ttyS1 &
+    sleep 1 # pause for btattach to get going before starting bluetoothd
+}
+
+# all the steps done during start (or restart)
+start() {
+    setup_gpio
+
+    case ${FIRMWARE_MODEL} in
+
+    aph)
+        RESET_LINE=11
+        BLE_ARGS="-b 50 -x ${blemac}"
+        HCICMD="btmgmt"
+
+        # Reset BLE Chip
+        echo 0 > $GP/gpio${RESET_LINE}/value; sleep 1; echo 1 > $GP/gpio${RESET_LINE}/value
+        sleep 5 # Need to give the BLE Chip some time before it is able to come online.
+
+        initHci
+
+        # wait for re-appearance
+        while [ ! -e /sys/class/bluetooth/hci0 ]
+        do
+            sleep 1
+        done
+
+        if ! $HCICMD power on	# bring stack up to run patchram
+        then
+            echo "blebeacon: can't bring up BLE after reset"
+        fi
+
+        case $hwrev_letter-$hwmodel in 
+            [0-2]-*AP41* | A-*AP41* )
+                echo "BLE rev-A hardware initialization"
+                ;;
+
+            *)
+                echo "BLE RAM-based hardware initialization"
+
+                #download patchram
+                if /usr/sbin/blepatchram --hi /usr/sbin/BCM20704_uart_hi.hcd --mid /usr/sbin/BCM20703A1_UART_BR_-5.75_LE_-0.75.hcd --lower_4 /usr/sbin/BCM20703A1_UART_fcbga_BU_-4db.hcd --lower_8 /usr/sbin/BCM20703A1_UART_fcbga_BU_-8db.hcd --lower_12 /usr/sbin/BCM20703A1_UART_fcbga_BU_-12db.hcd --lower_16 /usr/sbin/BCM20703A1_UART_fcbga_BU_-16db.hcd --lower_20 /usr/sbin/BCM20703A1_UART_fcbga_BU_-20db.hcd hci0
+                then
+                     while [ ! -e /sys/class/bluetooth/hci0 ]
+                     do
+                         echo waits
+                         sleep 1
+                     done
+
+                     if ! $HCICMD power on
+                     then
+                         echo "blebeacon: can't bring up BLE after patching."
+                     fi
+                else
+                    # patchram download failed
+                    echo "blebeacon: Failed patchram."
+                fi
+                ;;
+        esac
+
+        # run our bleBeacon within wrapper
+        /usr/bin/wrapper -d -s $((1<<20)) -n 10 -f /var/log/bleBeacon.log -w '---report to cloud---:' -r $numRestart -- /usr/sbin/bleBeacon ${BLE_ARGS}
+        ;;
+
+    apl|vulcano)
+        start_apl
+        ;;
+    esac
+}
+
+case "$1" in
+    start)
+        echo -n "Starting bleBeacon... Backgrounded"
+        start &
+        ;;
+
+    stop)
+        echo -n "Stopping bleBeacon... "
+        is_running && kill $(cat $pid_file)
+        echo OK
+        ;;
+
+    restart)
+        echo "Restarting bleBeacon... "
+
+        # Kill all running instances of BLE and start afresh
+        killall -9 "blepatchram"
+        killall -9 "wrap-bleBeacon"
+        killall -9 "bleBeacon"
+        . maxNumRestarts
+        start &
+        ;;
+
+    reload)
+        echo -n "Reloading bleBeacon... "
+        is_running && kill -SIGHUP $(cat $pid_file)
+        is_scan_running && kill -SIGHUP $(cat $scan_pid_file)
+        ;;
+
+    *)
+        echo "Usage: $0 (start|stop|restart|reload)"
+        exit 1
+esac
+
+exit 0

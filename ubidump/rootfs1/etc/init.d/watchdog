@@ -1,0 +1,23 @@
+#!/bin/sh
+# Start watchdog
+
+case "$1" in
+  start)
+    wd=`bootcfg w`
+    if [ "$wd" = 1 ]; then
+      echo "Starting watchdog: OK"
+      watchdog -t 5 /dev/watchdog
+    else
+      echo "*** Watchdog Disabled ***"
+    fi
+    ;;
+  stop)
+    ;;
+  restart|reload)
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit $?

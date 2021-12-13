@@ -1,0 +1,104 @@
+#!/bin/sh
+stty intr ^- quit ^- eof ^- start ^- stop ^- susp ^-
+
+die() {
+  echo "exiting"
+  echo $saved_printk > /proc/sys/kernel/printk
+  exit 1
+}
+trap "" SIGTSTP
+trap die SIGHUP SIGINT SIGQUIT SIGTERM
+
+# quiet things down while we run
+saved_printk=$(cat /proc/sys/kernel/printk)
+echo 0 > /proc/sys/kernel/printk
+
+menu() {
+  echo "Menu:"
+  echo " m) mac addresses"
+  echo " i) ip addresses"
+  echo " p) ping gateway"
+  echo " 1) ping 192.168.1.1"
+  echo " r) mfg rom"
+  echo " v) version"
+  echo " l) cycle LED colors"
+  echo " x) exit"
+}
+
+# walk through full red, full greeen, full blue, black, and regular LED operation
+cycle_led() {
+  r=$(cat /sys/class/leds/R/brightness)
+  g=$(cat /sys/class/leds/G/brightness)
+  b=$(cat /sys/class/leds/B/brightness)
+
+  case ${r}-${g}-${b} in
+  0-0-0)
+    r=255
+    ;;
+  255-0-0)
+    r=0
+    g=255
+    ;;
+  0-255-0)
+    g=0
+    b=255
+    ;;
+  0-0-255)
+    b=1
+    ;;
+  *)
+    r=0
+    g=0
+    b=0
+    ;;
+  esac
+
+  echo "$r" >/sys/class/leds/R/brightness
+  echo "$g" >/sys/class/leds/G/brightness
+  echo "$b" >/sys/class/leds/B/brightness
+}
+
+run() {
+  while true; do
+    menu
+    read -s -n1 key
+    case "$key" in
+    r)
+      /sbin/ubootenv r | egrep -v '^(serverip|ipaddr|fileaddr|bootdelay|mtddevname|partition|stderr|mtddevnum|bootcmd|filesize|netmask|mtdparts|gatewayip|stdin|ethact|mtdids|stdout)=' | sort
+      ;;
+    m)
+      /sbin/ip link show
+      ;;
+    i)
+      /sbin/ip -4 addr show
+      ;;
+    p)
+      gw="$(/sbin/ip route get 255.255.255.254 | head -n 1 | sed -e 's/^.* via //' | awk '{print $1}')"
+      if echo "$gw" | egrep '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]$' >/dev/null ; then
+        ping -c 3 $(/sbin/ip route get 255.255.255.254 | head -n 1 | sed -e 's/^.* via //' | awk '{print $1}')
+      else
+        echo "Error: No gateway"
+      fi
+      ;;
+    1)
+      ping -c 3 192.168.1.1
+      ;;
+    v)
+      cat /etc/mist/version
+      ;;
+    l)
+      cycle_led
+      ;;
+    x)
+      echo $saved_printk > /proc/sys/kernel/printk
+      exit
+      ;;
+    *)
+      echo "Unknown input"
+      ;;
+    esac
+  done
+}
+
+run
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SYS_GPIO=/sys/class/gpio
+USB_PWR=26
+
+if [ ! -d $SYS_GPIO/gpio$USB_PWR ]; then
+  # export the gpio pin
+  echo $USB_PWR > $SYS_GPIO/export
+  # set it as an output
+  echo out > $SYS_GPIO/gpio$USB_PWR/direction
+fi
+
+# set 0/1 per the command argument
+echo $1 > $SYS_GPIO/gpio$USB_PWR/value

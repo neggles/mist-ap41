@@ -1,0 +1,82 @@
+#!/bin/sh -x
+
+# define FIRMWARE_MODEL and other firmware-related variables
+. /etc/mist/version
+
+hwrev=$(cat /proc/device-tree/chosen/mfg_hardware_revision)
+
+# create the GPIOs which Control Peripherals.
+GP=/sys/class/gpio
+setup_in_gpio() {
+	echo -n "Setting up PM IN GPIOs: "
+	case $FIRMWARE_MODEL in	# set gpio pins for this model - Dc Power detect(10) and Poe(APH:10)
+	    aph)
+		set 10 8
+		;;
+	    apl|vulcano)
+		set 10 16
+		;;
+	esac
+
+	# turn on INPUT Gpios - run only if they don't exist already
+	if [ ! -e ${GP}/gpio${1} ]; then
+	    for i in $1 $2 ; do
+			echo $i > $GP/export
+			echo in > $GP/gpio${i}/direction
+	    done
+	fi
+}
+
+setup_out_gpio() {
+	echo -n "Setting up PM Out GPIOs: "
+	case $FIRMWARE_MODEL in	# set gpio pins for this model 48V PSE Ctrl, USB_EN 
+	    aph)
+		set 28 26
+		;;
+	    apl|vulcano)
+		set 19
+		;;
+	esac
+
+	# turn on Output Gpios - run only if they don't exist already
+	if [ ! -e ${GP}/gpio${1} ]; then
+	    for i in $1 $2 ; do
+			echo $i > $GP/export
+			if [ $i == ${1} ]; then
+				# PSE Power Is Active Low
+				echo high > $GP/gpio${i}/direction
+			else
+				echo out > $GP/gpio${i}/direction
+			fi
+	    done
+	fi
+}
+
+# all the steps done during start (or restart)
+start() {
+	setup_in_gpio
+	setup_out_gpio
+}
+
+case "$1" in
+  start)
+	echo -n "Starting mist_pm: "
+	start 
+	;;
+
+  stop)
+	echo -n "Stopping mist_pm: "
+	echo OK
+	;;
+
+  restart)
+	$0 stop
+	sleep 1
+	$0 start
+	;;
+  *)
+	echo "Usage: $0 (start|stop|restart|reload)"
+	exit 1
+esac
+
+exit 0

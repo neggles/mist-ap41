@@ -1,0 +1,11 @@
+#!/bin/sh
+# keep writing and deleteing a file of random junk until UBIFS cracks
+rw
+i=1
+while true; do
+  echo iteration $i
+  dd if=/dev/urandom of=/junk
+  rm /junk 
+  i=$((i+1))
+done
+

@@ -1,0 +1,37 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+	/sbin/ip link set dev r2 up
+	/usr/sbin/wl -i r2 up
+	/usr/sbin/wl -i r2 monitor 1
+
+    echo -n "Starting airiq_service: "
+    start-stop-daemon -S -b --exec /usr/sbin/airiq_service -- -c /etc/airiq_service.cfg
+    echo OK
+	sleep 3
+    echo -n "Starting airiq_app on r2: "
+    start-stop-daemon -S -b --exec /usr/sbin/airiq_app -- -i r2
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping airiq_app: "
+    start-stop-daemon -K -n airiq_app
+    echo OK
+    echo -n "Stopping airiq_service: "
+    start-stop-daemon -K -n airiq_service
+    echo OK
+	/usr/sbin/wl -i r2 down
+	/sbin/ip link set dev r2 down
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?
+

@@ -1,0 +1,109 @@
+#!/usr/bin/lua
+--[[
+radiocfg: manipulate radio enable/disable byte stored in the eeprom
+]]--
+
+MAX_RADIOS = 3
+
+bootcfg_file = '/proc/bootcfg'
+
+function Set(t)
+  local s = {}
+  for _,v in pairs(t) do s[v] = true end
+  return s
+end
+
+function error(msg)
+  print('error: ' .. msg)
+  os.exit(-1)
+end
+
+-- read a cfg value from the bootcfg file
+function bootcfg_rd()
+  local f = io.open(bootcfg_file, "rb")
+  if not f then
+    error('unable to open '.. bootcfg_file)
+  end
+  local data = f:read(2)
+  f:close()
+  if not data then
+    error('unable to read '.. bootcfg_file)
+  end
+  return data:byte(1) << 8 | data:byte(2)
+end
+
+-- write a cfg value to the bootcfg file
+function bootcfg_wr(cfg)
+  local f = io.open(bootcfg_file, "wb")
+  if not f then
+    error('unable to open '.. bootcfg_file)
+  end
+  f:write(string.format('%c%c', cfg >> 8, cfg))
+  f:close()
+end
+
+valid_radio = Set{'0','1','2','all'}
+valid_cmd = Set{'enable','disable'}
+
+function main()
+  local cfg = bootcfg_rd()
+
+  if #arg == 0 then
+    -- show status
+    cfg = cfg & 0xff
+    if cfg == 0 then
+      io.write('all radios enabled\n')
+    else
+      for i = 0,7 do
+        if cfg & (1 << i) ~= 0 then
+          io.write(string.format('r%d ', i))
+        end
+      end
+      io.write('disabled\n')
+    end
+    os.exit(0)
+  end
+
+  if #arg == 2 then
+    -- check the arguments
+    local cmd = arg[1]
+    if not valid_cmd[cmd] then
+      error('bad radio command')
+    end
+    local idx = arg[2]
+    if not valid_radio[idx] then
+      error('bad radio argument')
+    end
+    -- convert the radio argument to a disable/enable mask
+    local mask = 0
+    if idx == 'all' then
+      mask = (1 << MAX_RADIOS) - 1
+    else
+      mask = 1 << (idx - '0')
+    end
+    -- enable radio
+    if cmd == 'enable' then
+      cfg = cfg & ~mask
+      bootcfg_wr(cfg)
+      os.exit(0)
+    end
+    -- disable radio
+    if cmd == 'disable' then
+      cfg = cfg | mask
+      bootcfg_wr(cfg)
+      os.exit(0)
+    end
+  end
+
+  -- help
+  print(arg[0] ..' <cmd>')
+  print('  <cr>           - show radio enable/disable state')
+  print('  disable [0..2] - disable radio')
+  print('  disable all    - disable all radios')
+  print('  enable [0..2]  - enable radio')
+  print('  enable all     - enable all radios')
+  os.exit(-1)
+
+end
+
+main()

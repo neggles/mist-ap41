@@ -1,0 +1,63 @@
+#!/bin/sh
+# starts the wireless driver
+
+NVRAM=/sbin/nvram
+PARSE_NVRAM=/sbin/parse_nvram
+
+# define FIRMWARE_MODEL
+. /etc/mist/version
+
+start() {
+  case $FIRMWARE_MODEL in
+    aph)
+      /sbin/modprobe hnd # needed for nvram ops
+      # driver debug messages: these are bit maps, not levels, so check the code wl msglevel error
+      $NVRAM set wl_msglevel=0x1
+      $NVRAM set wl_msglevel2=0
+      $NVRAM set wl_emsglevel=0
+      $NVRAM set phy_msglevel=0
+      $NVRAM set wl0_txbf_bfe_cap=0
+      $NVRAM set wl0_txbf_bfr_cap=0
+      $NVRAM set wl1_txbf_bfe_cap=0
+      $NVRAM set wl1_txbf_bfr_cap=0
+      $NVRAM set wlent_qos_enabled=1
+      # parse nvram.json in /rw for additional nvram params
+      $PARSE_NVRAM
+      echo -n "Starting wl: "
+      /sbin/modprobe wl
+      echo OK
+    ;;
+    apl|vulcano)
+      # hnd/nvram is a kernel built in (no need to modprobe)
+      # driver debug messages: these are bit maps, not levels, so check the code wl msglevel error
+      $NVRAM set wl_msglevel=0x1
+      $NVRAM set wl_msglevel2=0
+      $NVRAM set wl_emsglevel=0
+      $NVRAM set phy_msglevel=0
+      $NVRAM set wl0_txbf_bfe_cap=0
+      $NVRAM set wl0_txbf_bfr_cap=0
+      $NVRAM set wl1_txbf_bfe_cap=0
+      $NVRAM set wl1_txbf_bfr_cap=0
+      $NVRAM set wlent_qos_enabled=1
+      # parse nvram.json in /rw for additional nvram params
+      $PARSE_NVRAM
+      echo -n "Starting wl: "
+      /sbin/modprobe wl
+      echo OK
+    ;;
+  esac
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    # nothing to do: rmmod of wl.ko/wl_rsdb.ko crashes :-(
+  ;;
+  *)
+	echo "Usage: $0 {start}"
+	exit 1
+esac
+
+exit $?

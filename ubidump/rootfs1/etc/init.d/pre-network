@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+
+case "$1" in
+  start)
+	modprobe aximac # drags in robo.ko and vlan1.ko too
+	# enable the JIT in kernel libpcap
+	echo 1 >/proc/sys/net/core/bpf_jit_enable
+	;;
+  stop)
+ 	# nothing
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+

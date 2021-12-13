@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ "$1" = "-h" ]; then
+  echo "slabcheck (enable/disable)"
+  exit 1
+fi
+
+#enable slabdebugging
+if [ "$1" = "enable" ]; then
+    /usr/sbin/slabinfo --debug=FZUPT
+    echo "**** slab validation enabled. ****"
+else
+    /usr/sbin/slabinfo --debug=-
+    echo "**** slab validation disabled. ****"
+    exit 0
+fi
+
+echo "----- Validating slab ----"
+while true
+do
+    /usr/sbin/slabinfo -v
+    sleep 10
+done

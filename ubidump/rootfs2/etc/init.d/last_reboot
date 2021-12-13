@@ -1,0 +1,9 @@
+#!/bin/sh
+# if the last reboot info file does not exist, create a default file.
+
+LAST_REBOOT_INFO="/rw/etc/mist/ep-control/last_reboot_info.txt"
+
+if [ ! -e $LAST_REBOOT_INFO ]; then
+	echo "$LAST_REBOOT_INFO not found, defaulting.."
+	echo -n `date +%s`"::unknown" > $LAST_REBOOT_INFO
+fi

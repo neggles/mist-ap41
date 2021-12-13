@@ -1,0 +1,17 @@
+#!/bin/sh
+# if last_reboot_info file is NOT present then
+# create with contents: ~reboot_time :: unknown - BootState = <cold/warm/unknown>   
+# if last_reboot_info.txt is present append - BootState = <cold/warm/unknown> 
+# this file is read by ep-control to send last_reboot_info to cloud in auth messages.
+
+if [ -e /rw/etc/mist/ep-control/last_reboot_info.txt ]; then
+  echo "last_reboot_info.txt file present; append last BootState"
+  last_reboot_info=`cat /rw/etc/mist/ep-control/last_reboot_info.txt`
+  boot_state="::"`/sbin/lastboot`
+  echo -n $last_reboot_info$boot_state > /rw/etc/mist/ep-control/last_reboot_info.txt 
+else
+  echo "last_reboot_info.txt file NOT present; create one"
+  lastreboot_time=`date +%s`
+  last_reboot_info=$lastreboot_time" ::unknown ::"`/sbin/lastboot`
+  echo -n $last_reboot_info > /rw/etc/mist/ep-control/last_reboot_info.txt
+fi

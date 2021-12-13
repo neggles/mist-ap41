@@ -1,0 +1,29 @@
+#!/bin/sh
+# NOTE: for 'start' and 'restart' extra args are allowed on the cmdline so local NTP servers can be passed in
+
+. maxNumRestarts
+
+cmd="$1"
+shift
+case "$cmd" in
+  start)
+    echo -n "Starting ntpd: "
+	/usr/bin/wrapper -d -f /var/log/ntpd.log -r $numRestart -- /usr/sbin/ntpd -n -p fd28:49be:757:7663::1:123 -p fd28:49be:757:7663::2:123 "$@"
+    echo OK
+    ;;
+  stop)
+    echo -n "Stopping ntpd: "
+    /usr/bin/killall ntpd
+    echo OK
+    ;;
+  restart)
+    $0 stop
+    . maxNumRestarts
+    $0 start "$@"
+    ;;
+  *)
+    echo "Usage: $0 (start|stop|restart)"
+    exit 1
+esac
+
+exit $?
